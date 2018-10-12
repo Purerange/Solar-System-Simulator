@@ -6,94 +6,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Space Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
-    <script src="matter.js"></script>
+    <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
+    <link rel='stylesheet' type='text/css' href='assets/css/reset.css'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <script src="main.js"></script>
 </head>
 
-<body>
-    <h1>Space Demo</h1>
-    <div id="container">
-        <!-- BACKGROUND LAYER -->
-        <!-- <canvas id="background" width="350" height="350">
-        </canvas> -->
+<body class='background1'>
+    <header id='header' role='banner'>
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Solar System Simulator</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="earthorbit.html">Our Home Planet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="analytics.html">What the Data Says</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown link
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-        <!-- FOREGROUND LAYER -->
-        <canvas id="foreground" width="350" height="350">
-        </canvas>
+    <div class='main'>
+
+        <div class="container">
+            <canvas id="solarSystem" width="1100" height="500">
+            </canvas>
+        </div>
     </div>
+
+    <footer id='footer'>
+        <div class="container">
+            <div class="card">
+                <div class="card-footer">Additional information goes here</div>
+            </div>
+
+        </div>
+
+        </div>
+    </footer>
+
+    <script src="assets/javascript/grant.js"></script>
 </body>
-
-<script>
-    //drawing on canvas
-    var orbit = true;
-    var x = 100;
-    var y = 0;
-    var angle = 0;
-    var radius = 0;
-
-    var canvas = document.getElementById("foreground");
-    //needed for drawing on canvas
-    var ctx = canvas.getContext("2d");
-
-    setInterval(drawOrbit, 20)
-
-    function drawOrbit() {
-        console.log("orbitting");
-
-        //clearing canvas
-        ctx.clearRect(0, 0, 350, 350);
-        ctx.strokeStyle = "white";
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        //drawing sun
-        ctx.fillStyle = "black";
-        
-            ctx.beginPath();
-            ctx.arc(150, 150, 40 + radius, 0, 2 * Math.PI);
-            if (radius <= 95) {
-            //radius += 5;
-            ctx.fillStyle = "yellow";
-        }
-        else {
-            ctx.fillStyle = "red";
-        }
-            ctx.stroke();
-            ctx.fill();
-        
-
-        //drawing text
-        ctx.fillStyle = "white";
-        //ctx.fill();
-        ctx.font = "30px Arial";
-        ctx.fillText("The Solar System", 90, 330);
-
-        //drawing planet
-        if (radius <= 45) {
-            //drawing planet's orbit
-            ctx.beginPath();
-            ctx.arc(150, 150, 100, 0, 2 * Math.PI);
-            ctx.stroke();
-            // ctx.fill();
-
-            ctx.fillStyle = "black";
-            ctx.beginPath();
-            ctx.arc(150 + x, 150 + y, 20, 0, 2 * Math.PI);
-            ctx.stroke();
-            ctx.fillStyle = "red";
-            ctx.fill();
-        }
-
-        angle += Math.PI / 100;
-
-        x = 100 * Math.cos(angle);
-        y = 100 * Math.sin(angle);
-    }
-
-
-</script>
 
 </html>
