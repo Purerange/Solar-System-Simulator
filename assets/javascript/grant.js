@@ -1,37 +1,37 @@
 //for animating solar system model
 
-// var spaceBodies = {
-//     sun: {
-//         objectRadius: 100,
-//         orbitSpeed: 20,
-//         orbitRadius: 0,
-//         orbitDirection: "clockwise",
-//         color: "yellow"
-//     },
-//     mercury: {
-//         objectRadius: 20,
-//         orbitSpeed: 50,
-//         orbitRadius: ,
-//         orbitDirection: "clockwise",
-//         color: "yellow"
-//     } 
-// }
+var spaceBodies = {
+    sun: {
+        radius: 100,
+        revolution: 200, //in earth days
+        sunDistance: 0,
+        orbitDirection: "clockwise",
+        color: "yellow"
+    },
+    mercury: {
+        radius: 20,
+        revolution: 87.97,
+        orbitRadius: 20,
+        orbitDirection: "clockwise",
+        color: "orangered"
+    } 
+}
 
 //drawing on canvas
-var orbit = true;
 var x = 100;
 var y = 0;
 var angle = 0;
 var radius = 0;
 
-var canvas = document.getElementById("foreground");
 //needed for drawing on canvas
+var canvas = document.getElementById("solarSystem");
 var ctx = canvas.getContext("2d");
 
-setInterval(drawOrbit, 20)
+//runs at 60fps
+setInterval(animateSolarSystem, 1000/60);
 
-function drawOrbit() {
-    console.log("orbitting");
+function animateSolarSystem() {
+   // console.log("orbitting");
 
     //clearing canvas
     ctx.clearRect(0, 0, 350, 350);
@@ -81,4 +81,13 @@ function drawOrbit() {
 
     x = 100 * Math.cos(angle);
     y = 100 * Math.sin(angle);
+}
+
+//draws the orbit paths for all the planets
+function drawOrbits() {
+    for (var key in spaceBodies) {
+        if (p.hasOwnProperty(key)) {
+            console.log(key + " -> " + p[key]);
+        }
+    }
 }
