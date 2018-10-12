@@ -36,8 +36,16 @@ function animateSolarSystem() {
     //clearing canvas
     ctx.clearRect(0, 0, 350, 350);
     ctx.strokeStyle = "white";
+
+    //black background, white border
+    var borderWidth = 2;
+    var width = canvas.width;
+    var height = canvas.height;
+    
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(borderWidth, borderWidth, width - 2*borderWidth, height - 2*borderWidth);
 
     //drawing sun
     ctx.fillStyle = "black";
