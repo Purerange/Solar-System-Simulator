@@ -31,17 +31,14 @@ var ctx = canvas.getContext("2d");
 setInterval(animateSolarSystem, 1000/60);
 
 function animateSolarSystem() {
-   // console.log("orbitting");
-
     //clearing canvas
     ctx.clearRect(0, 0, 350, 350);
-    ctx.strokeStyle = "white";
 
-    //black background, white border
     var borderWidth = 2;
     var width = canvas.width;
     var height = canvas.height;
     
+    //creating black background, white border
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = "black";
