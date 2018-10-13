@@ -105,7 +105,8 @@ $(document).ready(function () {
     }
 
     //runs at 60fps
-    setInterval(animateSolarSystem, 1000 / 60);
+    var time = setInterval(animateSolarSystem, 1000 / 60);
+    var paused = false;
 
     //needed for drawing on canvas
     var canvas = document.getElementById("solarSystem");
@@ -116,6 +117,12 @@ $(document).ready(function () {
     var height = canvas.height;
     var originX = width / 2;
     var originY = height / 2;
+
+    //pause button specs 
+    var pauseX = width - 130;
+    var pauseY = 30;
+    var pauseWidth = 100;
+    var pauseHeight = 40;
 
     //ctx.scale(.75,.75);
 
@@ -180,8 +187,8 @@ $(document).ready(function () {
             var textX = x;
             var textY = y + planet.radius + 10;
             //special coordinates for saturn
-            if(planet.name === "Saturn") {
-                textY = y + planet.radius/2 + 5;
+            if (planet.name === "Saturn") {
+                textY = y + planet.radius / 2 + 5;
             }
             ctx.fillText(planet.name, textX, textY);
 
@@ -211,7 +218,7 @@ $(document).ready(function () {
         var rectHeight = 30;
 
         ctx.fillStyle = "#3b3939";
-        ctx.fillRect(rectX,rectY,rectWidth,rectHeight);
+        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
 
         ctx.beginPath();
         ctx.strokeStyle = "white";
@@ -223,5 +230,69 @@ $(document).ready(function () {
         ctx.fillStyle = "white";
         ctx.textAlign = "left";
         ctx.fillText("Asteroid Belt", rectX + 45, rectY + 22);
+
+        //creating pause button
+        ctx.strokeRect(pauseX, pauseY, pauseWidth, pauseHeight);
+        updatePauseText();
     }
+
+    //obtains pixel on canvas that mouse hovers over
+    function getMousePos(canvas, event) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top
+        };
+    }
+
+    //for clicking pause button
+    $(canvas).on("click", function (event) {
+        console.log("clicked");
+        var mousePos = getMousePos(this, event);
+
+        var x = mousePos.x;
+        var y = mousePos.y;
+
+        //user clicked on the the pause button part of canvas
+        if (pixelInPause(x, y) && paused === false) {
+            clearInterval(time);
+            paused = true;
+            updatePauseText();
+
+        }
+        else if (pixelInPause(x, y) && paused === true) {
+            time = setInterval(animateSolarSystem, 1000 / 60);
+            paused = false;
+            updatePauseText();
+        }
+
+    });
+
+    //checking if a pixel is part of the pause button
+    function pixelInPause(x, y) {
+        console.log("clicked pause");
+
+        if (pauseX <= x && x <= pauseX + pauseWidth && pauseY <= y && y <= pauseY + pauseHeight) {
+            return true;
+        }
+
+        return false;
+    }
+
+    //toggles pause button between pause/play
+    function updatePauseText() {
+        //clearing pause button
+        ctx.clearRect(pauseX, pauseY, pauseWidth, pauseHeight);
+
+        //resuming animation. changing text to pause.
+        if (!paused) {
+            ctx.fillText("Pause", pauseX + pauseWidth / 7, pauseY + pauseHeight / 2 + 10);
+        }
+        //paused. changing text to play.
+        else {
+            ctx.fillText("Play", pauseX + pauseWidth / 7 + 10, pauseY + pauseHeight / 2 + 10);
+        }
+    }
+
+
 });
