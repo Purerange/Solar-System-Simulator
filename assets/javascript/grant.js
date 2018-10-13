@@ -1,98 +1,80 @@
-//for animating solar system model
+//file containing code for animating solar system model
+$(document).ready(function () {
 
-var spaceBodies = {
-    sun: {
-        radius: 100,
-        revolution: 200, //in earth days
-        sunDistance: 0,
-        orbitDirection: "clockwise",
-        color: "yellow"
-    },
-    mercury: {
-        radius: 20,
-        revolution: 87.97,
-        orbitRadius: 20,
-        orbitDirection: "clockwise",
-        color: "orangered"
-    } 
-}
+    //needed for drawing on canvas
+    var canvas = document.getElementById("solarSystem");
+    var ctx = canvas.getContext("2d");
 
-//drawing on canvas
-var x = 100;
-var y = 0;
-var angle = 0;
-var radius = 0;
-
-//needed for drawing on canvas
-var canvas = document.getElementById("solarSystem");
-var ctx = canvas.getContext("2d");
-
-//runs at 60fps
-setInterval(animateSolarSystem, 1000/60);
-
-function animateSolarSystem() {
-    //clearing canvas
-    ctx.clearRect(0, 0, 350, 350);
-
-    var borderWidth = 2;
+    //drawing on canvas
+    var angle = 0;
     var width = canvas.width;
     var height = canvas.height;
-    
-    //creating black background, white border
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, width, height);
-    ctx.fillStyle = "black";
-    ctx.fillRect(borderWidth, borderWidth, width - 2*borderWidth, height - 2*borderWidth);
+    var originX = width / 2;
+    var originY = height / 2;
 
-    //drawing sun
-    ctx.fillStyle = "black";
-    
-        ctx.beginPath();
-        ctx.arc(150, 150, 40 + radius, 0, 2 * Math.PI);
-        if (radius <= 95) {
-        //radius += 5;
-        ctx.fillStyle = "yellow";
-    }
-    else {
-        ctx.fillStyle = "red";
-    }
-        ctx.stroke();
-        ctx.fill();
-    
-
-    //drawing text
-    ctx.fillStyle = "white";
-    //ctx.fill();
-    ctx.font = "30px Arial";
-    ctx.fillText("The Solar System", 90, 330);
-
-    //drawing planet
-    if (radius <= 45) {
-        //drawing planet's orbit
-        ctx.beginPath();
-        ctx.arc(150, 150, 100, 0, 2 * Math.PI);
-        ctx.stroke();
-        // ctx.fill();
-
-        ctx.fillStyle = "black";
-        ctx.beginPath();
-        ctx.arc(150 + x, 150 + y, 20, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.fillStyle = "red";
-        ctx.fill();
-    }
-
-    angle += Math.PI / 100;
-
-    x = 100 * Math.cos(angle);
-    y = 100 * Math.sin(angle);
-}
-
-//draws the orbit paths for all the planets
-function drawOrbits() {
-    for (var key in spaceBodies) {
-        if (p.hasOwnProperty(key)) {
-            console.log(key + " -> " + p[key]);
+    var spaceBodies = {
+        sun: {
+            name: "Sun",
+            radius: height / 12,
+            revolution: 200, //in earth days
+            sunDistance: 0,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "yellow"
+        },
+        mercury: {
+            name: "Mercury",
+            radius: height / 30,
+            revolution: 87.97,
+            sunDistance: height / 7,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "orangered"
         }
     }
-}
+
+    //runs at 60fps
+    setInterval(animateSolarSystem, 1000 / 60);
+
+    function animateSolarSystem() {
+        //clearing canvas
+        ctx.clearRect(0, 0, width, height);
+
+        //creating black background, white border
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, width, height);
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 5;
+        ctx.strokeRect(0, 0, width, height);
+
+        ctx.lineWidth = 3;
+
+        //drawing all the planets for this particular instance of time
+        $.each(spaceBodies, function (key, planet) {
+            //console.log(key);
+            //console.log(planet);
+            //console.log(key.color);
+
+            //drawing planet orbit
+            if (planet !== "Sun") {
+                ctx.strokeStyle = "white";
+                ctx.beginPath();
+                ctx.arc(originX, originY, planet.sunDistance, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+
+            //drawing the planet
+            var x = originX + planet.sunDistance * Math.cos(angle);
+            var y = originY + planet.sunDistance * Math.sin(angle);
+
+            ctx.fillStyle = planet.color;
+            ctx.beginPath();
+            ctx.arc(x, y, planet.radius, 0, 2 * Math.PI);
+            ctx.fill();
+
+            //1 earth day = 1 frame
+            var orbitRate = 2 * Math.PI / planet.revolution;
+            angle += orbitRate;
+        });
+    }
+});

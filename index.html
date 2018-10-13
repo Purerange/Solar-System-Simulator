@@ -1,141 +1,50 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Space Demo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
-        <link rel='stylesheet' type='text/css' href='assets/css/reset.css'>
-        
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Space Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
+    <link rel='stylesheet' type='text/css' href='assets/css/reset.css'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+</head>
 
-    <body class="background1">
+<body class='background1'>
+    <header id='header' role='banner'>
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Solar System Simulator</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="earthorbit.html">Our Home Planet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="analytics.html">What the Data Says</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-   
-        <header id='header' role='banner'>
-            <!-- Nav Bar -->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand text-primary" href="#">Solar System Simulator</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarNavDropdown">
-                      <ul class="navbar-nav">
-                        <li class="nav-item">
-                          <a class="nav-link" href="earthorbit.html">Our Home Planet</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="analytics.html">What the Data Says</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </nav>
-        </header>
-        
-        <br>
+    <div class='main'>
 
-        <div class='main'>
-   
-            <div class="container">
-                <!-- FOREGROUND LAYER -->
-                <canvas id="solarSystem" width="800" height="500">
-                </canvas>
-                </div>
-             </div>
-
-        </div>
-
-    <footer id='footer'>
         <div class="container">
-                <div class="card">
-                    <div class="card-footer">Additional information goes here</div>
-                </div>
-
-            </div> 
-
+            <canvas id="solarSystem" width="1100" height="500">
+            </canvas>
         </div>
-    </footer>
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="assets/javascript/grant.js"></script>
+    <script src="assets/javascript/grant.js"></script>
 </body>
+
 </html>
