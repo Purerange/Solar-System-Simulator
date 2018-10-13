@@ -139,26 +139,6 @@ $(document).ready(function () {
         ctx.arc(originX, originY, spaceBodies.mars.sunDistance, 0, 2 * Math.PI);
         ctx.fill();
 
-        //labeling asteroid belt
-        var rectX = 25;
-        var rectY = 25;
-        var rectWidth = 35;
-        var rectHeight = 30;
-
-        ctx.fillStyle = "#360b0b";
-        ctx.fillRect(rectX,rectY,rectWidth,rectHeight);
-
-        ctx.beginPath();
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 3;
-        ctx.rect(rectX, rectY, rectWidth, rectHeight);
-        ctx.stroke();
-
-        ctx.fillStyle = "white";
-        ctx.textAlign = "right";
-        ctx.fillText("Asteroid Belt", rectX, rectY);
-
-
         ctx.lineWidth = 1;
 
         //drawing all the planets for this particular instance of time
@@ -193,14 +173,15 @@ $(document).ready(function () {
             ctx.drawImage(img, planetX, planetY, planet.radius * 2, planet.radius * 2);
 
             //writing planet name
+            ctx.font = "15px Arial";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
 
             var textX = x;
-            var textY = y + planet.radius + 5;
+            var textY = y + planet.radius + 10;
             //special coordinates for saturn
             if(planet.name === "Saturn") {
-                textY = y + planet.radius/2;
+                textY = y + planet.radius/2 + 5;
             }
             ctx.fillText(planet.name, textX, textY);
 
@@ -222,5 +203,25 @@ $(document).ready(function () {
         ctx.strokeStyle = "white";
         ctx.lineWidth = 5;
         ctx.strokeRect(0, 0, width, height);
+
+        //labeling asteroid belt
+        var rectX = 25;
+        var rectY = 25;
+        var rectWidth = 35;
+        var rectHeight = 30;
+
+        ctx.fillStyle = "#360b0b";
+        ctx.fillRect(rectX,rectY,rectWidth,rectHeight);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 3;
+        ctx.rect(rectX, rectY, rectWidth, rectHeight);
+        ctx.stroke();
+
+        ctx.font = "25px Arial";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "left";
+        ctx.fillText("Asteroid Belt", rectX + 45, rectY + 20);
     }
 });
