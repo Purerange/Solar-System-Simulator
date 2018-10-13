@@ -34,7 +34,7 @@ $(document).ready(function () {
         },
         earth: {
             name: "Earth",
-            radius: 23,
+            radius: 16,
             revolution: 365,
             sunDistance: 145,
             orbitDirection: "clockwise",
@@ -44,7 +44,7 @@ $(document).ready(function () {
         },
         mars: {
             name: "Mars",
-            radius: 19,
+            radius: 12,
             revolution: 687,
             sunDistance: 188,
             orbitDirection: "clockwise",
@@ -54,9 +54,9 @@ $(document).ready(function () {
         },
         ceres: {
             name: "Ceres",
-            radius: 10,
+            radius: 5,
             revolution: 1682,
-            sunDistance: 212,
+            sunDistance: 214,
             orbitDirection: "clockwise",
             angle: 0,
             color: "white",
@@ -64,9 +64,9 @@ $(document).ready(function () {
         },
         jupiter: {
             name: "Jupiter",
-            radius: 55,
+            radius: 42,
             revolution: 12 * 365,
-            sunDistance: 260,
+            sunDistance: 270,
             orbitDirection: "clockwise",
             angle: 0,
             color: "orange",
@@ -74,9 +74,9 @@ $(document).ready(function () {
         },
         saturn: {
             name: "Saturn",
-            radius: 40 * 2,
+            radius: 30 * 2,
             revolution: 29 * 365,
-            sunDistance: 342,
+            sunDistance: 360,
             orbitDirection: "clockwise",
             angle: 0,
             color: "khaki",
@@ -84,9 +84,9 @@ $(document).ready(function () {
         },
         uranus: {
             name: "Uranus",
-            radius: 33,
+            radius: 25,
             revolution: 84 * 365,
-            sunDistance: 430,
+            sunDistance: 435,
             orbitDirection: "counterclockwise",
             angle: 0,
             color: "turquoise",
@@ -94,9 +94,9 @@ $(document).ready(function () {
         },
         neptune: {
             name: "Neptune",
-            radius: 28,
+            radius: 20,
             revolution: 165 * 365,
-            sunDistance: 480,
+            sunDistance: 485,
             orbitDirection: "clockwise",
             angle: 0,
             color: "blue",
@@ -111,7 +111,7 @@ $(document).ready(function () {
     var canvas = document.getElementById("solarSystem");
     var ctx = canvas.getContext("2d");
 
-    //drawing on canvas
+    //helpful canvas values
     var width = canvas.width;
     var height = canvas.height;
     var originX = width / 2;
@@ -127,6 +127,37 @@ $(document).ready(function () {
         //creating black background
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, width, height);
+
+        //shading asteroid belt
+        ctx.fillStyle = "#360b0b";
+        ctx.beginPath();
+        ctx.arc(originX, originY, spaceBodies.jupiter.sunDistance, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.arc(originX, originY, spaceBodies.mars.sunDistance, 0, 2 * Math.PI);
+        ctx.fill();
+
+        //labeling asteroid belt
+        var rectX = 25;
+        var rectY = 25;
+        var rectWidth = 35;
+        var rectHeight = 30;
+
+        ctx.fillStyle = "#360b0b";
+        ctx.fillRect(rectX,rectY,rectWidth,rectHeight);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 3;
+        ctx.rect(rectX, rectY, rectWidth, rectHeight);
+        ctx.stroke();
+
+        ctx.fillStyle = "white";
+        ctx.textAlign = "right";
+        ctx.fillText("Asteroid Belt", rectX, rectY);
+
 
         ctx.lineWidth = 1;
 
