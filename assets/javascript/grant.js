@@ -129,7 +129,7 @@ $(document).ready(function () {
         ctx.fillRect(0, 0, width, height);
 
         //shading asteroid belt
-        ctx.fillStyle = "#360b0b";
+        ctx.fillStyle = "#3b3939";
         ctx.beginPath();
         ctx.arc(originX, originY, spaceBodies.jupiter.sunDistance, 0, 2 * Math.PI);
         ctx.fill();
@@ -210,18 +210,18 @@ $(document).ready(function () {
         var rectWidth = 35;
         var rectHeight = 30;
 
-        ctx.fillStyle = "#360b0b";
+        ctx.fillStyle = "#3b3939";
         ctx.fillRect(rectX,rectY,rectWidth,rectHeight);
 
         ctx.beginPath();
         ctx.strokeStyle = "white";
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 2;
         ctx.rect(rectX, rectY, rectWidth, rectHeight);
         ctx.stroke();
 
         ctx.font = "25px Arial";
         ctx.fillStyle = "white";
         ctx.textAlign = "left";
-        ctx.fillText("Asteroid Belt", rectX + 45, rectY + 20);
+        ctx.fillText("Asteroid Belt", rectX + 45, rectY + 22);
     }
 });
