@@ -1,6 +1,19 @@
 //file containing code for animating solar system model
 $(document).ready(function () {
 
+    var config = {
+        apiKey: "AIzaSyDcDfKZ4Bw5G7wC9aOW_LnUrNli-TzjetE",
+        authDomain: "solar-system-simulator.firebaseapp.com",
+        databaseURL: "https://solar-system-simulator.firebaseio.com",
+        projectId: "solar-system-simulator",
+        storageBucket: "solar-system-simulator.appspot.com",
+        messagingSenderId: "711323614670"
+      };
+      firebase.initializeApp(config);
+    
+    var database = firebase.database();
+
+
     var spaceBodies = {
         sun: {
             name: "Sun",
@@ -106,6 +119,7 @@ $(document).ready(function () {
 
     //runs at 60fps
     var time = setInterval(animateSolarSystem, 1000 / 60);
+    var firebaseInterval = setInterval(updateFirebase, 1000);
     var paused = false;
 
     //needed for drawing on canvas
@@ -256,12 +270,14 @@ $(document).ready(function () {
         //user clicked on the the pause button part of canvas
         if (pixelInPause(x, y) && paused === false) {
             clearInterval(time);
+            clearInterval(firebaseInterval);
             paused = true;
             updatePauseText();
 
         }
         else if (pixelInPause(x, y) && paused === true) {
             time = setInterval(animateSolarSystem, 1000 / 60);
+            firebaseInterval = setInterval(updateFirebase, 1000);
             paused = false;
             updatePauseText();
         }
@@ -294,5 +310,14 @@ $(document).ready(function () {
         }
     }
 
+    //stores the planet angles in firebase
+    function updateFirebase() {
+        $.each(spaceBodies, function (key, planet) {
 
+            database.ref("planets/" + planet.name).set({
+                angle: planet.angle
+            });
+
+        });
+    }
 });
