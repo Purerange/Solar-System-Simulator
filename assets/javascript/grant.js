@@ -229,7 +229,7 @@ $(document).ready(function () {
         ctx.font = "25px Arial";
         ctx.fillStyle = "white";
         ctx.textAlign = "left";
-        ctx.fillText("Asteroid Belt", rectX + 45, rectY + 22);
+        ctx.fillText("= Asteroid Belt", rectX + 45, rectY + 22);
 
         //creating pause button
         ctx.strokeRect(pauseX, pauseY, pauseWidth, pauseHeight);
