@@ -8,11 +8,10 @@ $(document).ready(function () {
         projectId: "solar-system-simulator",
         storageBucket: "solar-system-simulator.appspot.com",
         messagingSenderId: "711323614670"
-      };
-      firebase.initializeApp(config);
-    
-    var database = firebase.database();
+    };
+    firebase.initializeApp(config);
 
+    var database = firebase.database();
 
     var spaceBodies = {
         sun: {
@@ -117,12 +116,10 @@ $(document).ready(function () {
         }
     }
 
-    //runs at 60fps
-    var time = setInterval(animateSolarSystem, 1000 / 60);
-    var firebaseInterval = setInterval(updateFirebase, 1000);
-    var paused = false;
-
     //needed for drawing on canvas
+    var background = document.getElementById("modelBackdrop");
+    var bg = background.getContext("2d");
+
     var canvas = document.getElementById("solarSystem");
     var ctx = canvas.getContext("2d");
 
@@ -132,49 +129,82 @@ $(document).ready(function () {
     var originX = width / 2;
     var originY = height / 2;
 
-    //pause button specs 
-    var pauseX = width - 130;
-    var pauseY = 30;
-    var pauseWidth = 100;
-    var pauseHeight = 40;
+    //pause button specs
+    var pause = {
+        x: width - 130,
+        y: 30,
+        width: 100,
+        height: 40
+    }
 
     //ctx.scale(.75,.75);
 
+    //draws static elements of model including background color and orbit rings
+    function drawBackground() {
+        //creating black background
+        bg.fillStyle = "black";
+        bg.fillRect(0, 0, width, height);
+
+        //shading asteroid belt
+        bg.fillStyle = "#3b3939";
+        bg.beginPath();
+        bg.arc(originX, originY, spaceBodies.jupiter.sunDistance, 0, 2 * Math.PI);
+        bg.fill();
+
+        bg.fillStyle = "black";
+        bg.beginPath();
+        bg.arc(originX, originY, spaceBodies.mars.sunDistance, 0, 2 * Math.PI);
+        bg.fill();
+
+        //labeling asteroid belt
+        var rectX = 25;
+        var rectY = 25;
+        var rectWidth = 35;
+        var rectHeight = 30;
+
+        bg.fillStyle = "#3b3939";
+        bg.fillRect(rectX, rectY, rectWidth, rectHeight);
+
+        bg.beginPath();
+        bg.strokeStyle = "white";
+        bg.lineWidth = 2;
+        bg.rect(rectX, rectY, rectWidth, rectHeight);
+        bg.stroke();
+
+        bg.font = "25px Arial";
+        bg.fillStyle = "white";
+        bg.textAlign = "left";
+        bg.fillText("= Asteroid Belt", rectX + 45, rectY + 22);
+
+        bg.lineWidth = 1;
+
+        //drawing orbits
+        $.each(spaceBodies, function (key, planet) {
+            //drawing planet orbit
+            if (planet !== "Sun") {
+                bg.strokeStyle = "#828180";
+                bg.beginPath();
+                bg.arc(originX, originY, planet.sunDistance, 0, 2 * Math.PI);
+                bg.stroke();
+            }
+        });
+
+        //creating pause button
+        updateButtonText(pause, "Pause");
+    }
+
+
+    //animates the planets and other movig objects in model
     function animateSolarSystem() {
 
         //clearing canvas
         ctx.clearRect(0, 0, width, height);
-
-        //creating black background
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, width, height);
-
-        //shading asteroid belt
-        ctx.fillStyle = "#3b3939";
-        ctx.beginPath();
-        ctx.arc(originX, originY, spaceBodies.jupiter.sunDistance, 0, 2 * Math.PI);
-        ctx.fill();
-
-        ctx.fillStyle = "black";
-        ctx.beginPath();
-        ctx.arc(originX, originY, spaceBodies.mars.sunDistance, 0, 2 * Math.PI);
-        ctx.fill();
-
-        ctx.lineWidth = 1;
-
+        
         //drawing all the planets for this particular instance of time
         $.each(spaceBodies, function (key, planet) {
             //console.log(key);
             //console.log(planet);
             //console.log(key.color);
-
-            //drawing planet orbit
-            if (planet !== "Sun") {
-                ctx.strokeStyle = "#828180";
-                ctx.beginPath();
-                ctx.arc(originX, originY, planet.sunDistance, 0, 2 * Math.PI);
-                ctx.stroke();
-            }
 
             //drawing the planet
             var x = originX + planet.sunDistance * Math.cos(planet.angle);
@@ -224,31 +254,33 @@ $(document).ready(function () {
         ctx.strokeStyle = "white";
         ctx.lineWidth = 5;
         ctx.strokeRect(0, 0, width, height);
-
-        //labeling asteroid belt
-        var rectX = 25;
-        var rectY = 25;
-        var rectWidth = 35;
-        var rectHeight = 30;
-
-        ctx.fillStyle = "#3b3939";
-        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
-
-        ctx.beginPath();
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 2;
-        ctx.rect(rectX, rectY, rectWidth, rectHeight);
-        ctx.stroke();
-
-        ctx.font = "25px Arial";
-        ctx.fillStyle = "white";
-        ctx.textAlign = "left";
-        ctx.fillText("Asteroid Belt", rectX + 45, rectY + 22);
-
-        //creating pause button
-        ctx.strokeRect(pauseX, pauseY, pauseWidth, pauseHeight);
-        updatePauseText();
     }
+
+    //button click event for canvas buttons
+    $(canvas).on("click", function (event) {
+        console.log("clicked");
+        var mousePos = getMousePos(this, event);
+
+        var x = mousePos.x;
+        var y = mousePos.y;
+
+        //user clicked pause
+        if (pixelInButton(x, y, pause) && paused === false) {
+            clearInterval(time);
+            clearInterval(firebaseInterval);
+            paused = true;
+            updateButtonText(pause, "Play");
+
+        }
+        //user clicked play
+        else if (pixelInButton(x, y, pause) && paused === true) {
+            time = setInterval(animateSolarSystem, 1000 / 60);
+            firebaseInterval = setInterval(updateFirebase, 1000);
+            paused = false;
+            updateButtonText(pause, "Pause");
+        }
+
+    });
 
     //obtains pixel on canvas that mouse hovers over
     function getMousePos(canvas, event) {
@@ -259,55 +291,40 @@ $(document).ready(function () {
         };
     }
 
-    //for clicking pause button
-    $(canvas).on("click", function (event) {
-        console.log("clicked");
-        var mousePos = getMousePos(this, event);
+    //checking if a pixel is part of a canvas button.
+    //the button parameter is an object of the form -> button {x: , y: , width: , height: }
+    function pixelInButton(x, y, button) {
+        var x1 = button.x;
+        var x2 = button.x + button.width;
+        var y1 = button.y;
+        var y2 = button.y + button.height;
 
-        var x = mousePos.x;
-        var y = mousePos.y;
-
-        //user clicked on the the pause button part of canvas
-        if (pixelInPause(x, y) && paused === false) {
-            clearInterval(time);
-            clearInterval(firebaseInterval);
-            paused = true;
-            updatePauseText();
-
-        }
-        else if (pixelInPause(x, y) && paused === true) {
-            time = setInterval(animateSolarSystem, 1000 / 60);
-            firebaseInterval = setInterval(updateFirebase, 1000);
-            paused = false;
-            updatePauseText();
-        }
-
-    });
-
-    //checking if a pixel is part of the pause button
-    function pixelInPause(x, y) {
-        console.log("clicked pause");
-
-        if (pauseX <= x && x <= pauseX + pauseWidth && pauseY <= y && y <= pauseY + pauseHeight) {
+        //checking if a pixel is within a button's boundaries
+        if (x1 <= x && x <= x2 && y1 <= y && y <= y2) {
             return true;
         }
 
         return false;
     }
 
-    //toggles pause button between pause/play
-    function updatePauseText() {
-        //clearing pause button
-        ctx.clearRect(pauseX, pauseY, pauseWidth, pauseHeight);
+    //updates text of a canvas button
+    function updateButtonText(button, text) {
+        //clearing existing button text
+        bg.clearRect(button.x, button.y, button.width, button.height);
 
-        //resuming animation. changing text to pause.
-        if (!paused) {
-            ctx.fillText("Pause", pauseX + pauseWidth / 7, pauseY + pauseHeight / 2 + 10);
-        }
-        //paused. changing text to play.
-        else {
-            ctx.fillText("Play", pauseX + pauseWidth / 7 + 10, pauseY + pauseHeight / 2 + 10);
-        }
+        //black background
+        bg.fillStyle = "black";
+        bg.fillRect(button.x, button.y, button.width, button.height);
+
+        //white border
+        bg.strokeStyle = "white";
+        bg.lineWidth = 2;
+        bg.strokeRect(button.x, button.y, button.width, button.height);
+        
+        //white text
+        bg.fillStyle = "white";
+        bg.lineWidth = 5;
+        bg.fillText(text, button.x + button.width / 7, button.y + button.height / 2 + 10);
     }
 
     //stores the planet angles in firebase
@@ -320,4 +337,12 @@ $(document).ready(function () {
 
         });
     }
+
+    //running program for first time
+    drawBackground();
+
+    //runs at 60fps
+    var time = setInterval(animateSolarSystem, 1000 / 60);
+    var firebaseInterval = setInterval(updateFirebase, 1000);
+    var paused = false;
 });

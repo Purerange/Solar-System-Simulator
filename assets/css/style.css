@@ -18,8 +18,42 @@
     height: 650px;
 }
 
+html, body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  .main {
+    flex: 1 0 auto;
+  }
+
 #graph-footer {
     color: #ffffff;
     background-color: #666666;
-    height: 40px;
+    flex-shrink: 0;
 }
+
+.container {
+    min-height: 700px;
+}
+
+#modelBackdrop, #solarSystem {
+    position: absolute; 
+    /* left: 0; 
+    top: 0;  */
+}
+
+#modelBackdrop {
+    z-index: 0;
+}
+
+#solarSystem {
+    z-index: 1;
+}
+
+
+
+
+   
