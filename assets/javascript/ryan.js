@@ -157,7 +157,7 @@ $(document).ready(function() {
             color: 'orangered'}
     }
 
-    var sunDisplay = document.getElementById("magnitude-container");
+    var sunDisplay = document.getElementById("sun-container");
     var dataSun = [sunPlot_radius, sunPlot_lum];
 
     var layoutSun = {
@@ -186,3 +186,9 @@ $(document).ready(function() {
 
 // optional stuff for the plots:
 //  error bars for magnitude
+
+// plots: temperature vs time
+//  kuiper belt, oort cloud, alpha centauri system
+// satellite api and locations
+// possibility of life in solar system
+// convert Ra Dec to alt,az
