@@ -17,7 +17,7 @@ $(document).ready(function () {
     var outerViewPlanets = {
         sun: {
             name: "Sun",
-            radius: 55,
+            radius: 42,
             revolution: 100, //in earth days
             sunDistance: 2, //this is actually distance from baricenter
             orbitDirection: "clockwise",
@@ -27,9 +27,9 @@ $(document).ready(function () {
         },
         mercury: {
             name: "Mercury",
-            radius: 10,
+            radius: 7,
             revolution: 88,
-            sunDistance: 80,
+            sunDistance: 72,
             orbitDirection: "clockwise",
             angle: 0,
             color: "lightgrey",
@@ -37,7 +37,7 @@ $(document).ready(function () {
         },
         venus: {
             name: "Venus",
-            radius: 15,
+            radius: 10,
             revolution: 225,
             sunDistance: 107,
             orbitDirection: "counterclockwise",
@@ -47,19 +47,19 @@ $(document).ready(function () {
         },
         earth: {
             name: "Earth",
-            radius: 16,
+            radius: 11,
             revolution: 365,
             sunDistance: 145,
             orbitDirection: "clockwise",
             angle: 0,
             color: "green",
-            img: "assets/images/earth2.png"
+            img: "assets/images/earth2.png",
         },
         mars: {
             name: "Mars",
-            radius: 12,
+            radius: 9,
             revolution: 687,
-            sunDistance: 188,
+            sunDistance: 185,
             orbitDirection: "clockwise",
             angle: 0,
             color: "red",
@@ -67,7 +67,7 @@ $(document).ready(function () {
         },
         ceres: {
             name: "Ceres",
-            radius: 5,
+            radius: 2,
             revolution: 1682,
             sunDistance: 214,
             orbitDirection: "clockwise",
@@ -121,7 +121,7 @@ $(document).ready(function () {
     var innerViewPlanets = {
         sun: {
             name: "Sun",
-            radius: 60,
+            radius: 48,
             revolution: 9, //in earth days
             sunDistance: 62, //this is actually distance from baricenter
             orbitDirection: "clockwise",
@@ -131,9 +131,9 @@ $(document).ready(function () {
         },
         mercury: {
             name: "Mercury",
-            radius: 15,
+            radius: 14,
             revolution: 88,
-            sunDistance: 170,
+            sunDistance: 145,
             orbitDirection: "clockwise",
             angle: 0,
             color: "lightgrey",
@@ -141,9 +141,9 @@ $(document).ready(function () {
         },
         venus: {
             name: "Venus",
-            radius: 20,
-            revolution: 225,
-            sunDistance: 235,
+            radius: 18,
+            revolution: 220,
+            sunDistance: 200,
             orbitDirection: "counterclockwise",
             angle: 0,
             color: "gold",
@@ -151,19 +151,31 @@ $(document).ready(function () {
         },
         earth: {
             name: "Earth",
-            radius: 22,
+            radius: 18,
             revolution: 365,
-            sunDistance: 295,
+            sunDistance: 290,
             orbitDirection: "clockwise",
             angle: 0,
             color: "green",
-            img: "assets/images/earth2.png"
+            img: "assets/images/earth2.png",
+            satellites: {
+                moon: {
+                    name: "Moon",
+                    radius: 10,
+                    revolution: 30,
+                    planetDistance: 45,
+                    orbitDirection: "clockwise",
+                    angle: 2*Math.PI,
+                    color: "white",
+                    img: "assets/images/moon.png"
+                },
+            }
         },
         mars: {
             name: "Mars",
-            radius: 17,
+            radius: 15,
             revolution: 687,
-            sunDistance: 350,
+            sunDistance: 370,
             orbitDirection: "clockwise",
             angle: 0,
             color: "red",
@@ -171,9 +183,9 @@ $(document).ready(function () {
         },
         ceres: {
             name: "Ceres",
-            radius: 10,
+            radius: 6,
             revolution: 1682,
-            sunDistance: 400,
+            sunDistance: 441,
             orbitDirection: "clockwise",
             angle: 0,
             color: "white",
@@ -204,9 +216,9 @@ $(document).ready(function () {
             left: 10,
             top: 28
         },
-        terrestrial: {
+        switchView: {
             x: 30,
-            y: height - 150,
+            y: height - 80,
             width: 170,
             height: 40,
             left: 10,
@@ -259,7 +271,7 @@ $(document).ready(function () {
         $.each(spaceBodies, function (key, planet) {
             //drawing planet orbit
             if (planet.name !== "Sun") {
-                bg.strokeStyle = "#828180";
+                bg.strokeStyle = "#212120";
                 bg.beginPath();
                 bg.arc(originX, originY, planet.sunDistance, 0, 2 * Math.PI);
                 bg.stroke();
@@ -272,7 +284,7 @@ $(document).ready(function () {
         console.log(buttons.pause);
 
         //creating terrestrial planets button
-        drawButton(buttons.terrestrial, "Inner Planets");
+        drawButton(buttons.switchView, "Inner Planets");
     }
 
 
@@ -284,10 +296,6 @@ $(document).ready(function () {
 
         //drawing all the planets for this particular instance of time
         $.each(spaceBodies, function (key, planet) {
-            //console.log(key);
-            //console.log(planet);
-            //console.log(key.color);
-
             //drawing the planet
             var x = originX + planet.sunDistance * Math.cos(planet.angle);
             var y = originY + planet.sunDistance * Math.sin(planet.angle);
@@ -295,18 +303,13 @@ $(document).ready(function () {
             planetX = x - planet.radius;
             planetY = y - planet.radius;
 
-            // ctx.fillStyle = planet.color;
-            // ctx.beginPath();
-            // ctx.arc(x, y, planet.radius, 0, 2 * Math.PI);
-            // ctx.fill();
-
             var img = new Image();
             img.src = planet.img;
 
             ctx.drawImage(img, planetX, planetY, planet.radius * 2, planet.radius * 2);
 
             //writing planet name
-            ctx.font = "15px Arial";
+            ctx.font = "12px Arial";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
 
@@ -331,6 +334,41 @@ $(document).ready(function () {
             else {
                 planet.angle -= orbitRate;
             }
+
+            //planet has moons
+            //console.log(planet.hasOwnProperty("satellites"));
+            if (planet.hasOwnProperty("satellites")) {
+                //console.log(planet.satellites);
+                $.each(planet.satellites, function (key, moon) {
+                    console.log("drawing moon");
+                    //drawing satellite
+                    var satelliteX = x + moon.planetDistance * Math.cos(moon.angle);
+                    var satelliteY = y + moon.planetDistance * Math.sin(moon.angle);
+
+                    moonX = satelliteX - moon.radius;
+                    moonY = satelliteY - moon.radius;
+
+                    var img = new Image();
+                    img.src = moon.img;
+
+                    ctx.drawImage(img, moonX, moonY, moon.radius * 2, moon.radius * 2);
+
+                    //at normal time speed, 1 earth day = 1 frame
+                    var orbitRate = 2 * Math.PI / moon.revolution;
+
+                    //adjusting time speed
+                    orbitRate = orbitRate * timeSpeed;
+
+                    //planet has retrograde motion
+                    if (moon.orbitDirection === "clockwise") {
+                        moon.angle += orbitRate;
+                    }
+                    //planet has prograde motion
+                    else {
+                        moon.angle -= orbitRate;
+                    }
+                });
+            }
         });
 
         //white border
@@ -338,6 +376,8 @@ $(document).ready(function () {
         ctx.lineWidth = 5;
         ctx.strokeRect(0, 0, width, height);
     }
+
+    //draw space body
 
     //button click event for canvas buttons
     $(canvas).on("click", function (event) {
@@ -359,12 +399,21 @@ $(document).ready(function () {
             drawButton(buttons.pause, "Pause");
         }
 
-        //user clicked inner planets
-        if (buttonClicked(buttons.terrestrial, this)) {
+        //user entering inner planet view
+        if (buttonClicked(buttons.switchView, this) && spaceBodies === outerViewPlanets) {
             spaceBodies = innerViewPlanets;
-            timeSpeed = 10000;
+            timeSpeed = .10;
             drawBackground();
+            drawButton(buttons.switchView, "Outer Planets");
         }
+        //user entering outer planet view
+        else if(buttonClicked(buttons.switchView, this) && spaceBodies === innerViewPlanets) {
+            spaceBodies = outerViewPlanets;
+            timeSpeed = 1;
+            drawBackground();
+            drawButton(buttons.switchView, "Inner Planets");
+        }
+
 
     });
 
@@ -432,11 +481,11 @@ $(document).ready(function () {
     }
 
     //running program for first time
-    var spaceBodies = innerViewPlanets;
+    var spaceBodies = outerViewPlanets;
 
     drawBackground();
 
-    var timeSpeed = .10;
+    var timeSpeed = 1;
 
     //runs at 60fps
     var time = setInterval(animateSolarSystem, 1000 / 60);
