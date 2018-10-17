@@ -168,17 +168,17 @@ $(document).ready(function() {
 
     Plotly.newPlot(sunDisplay, dataSun, layoutSun);
 
-    setInterval(function() {
-        var planets = window.lagrange.planet_positions.getPositions(new Date());
+    // setInterval(function() {
+    //     var planets = window.lagrange.planet_positions.getPositions(new Date());
         
-        var x_coor = planets[4]["position"]["x"]
-        var y_coor = planets[4]["position"]["y"]
-        var z_coor = planets[4]["position"]["z"]
+    //     var x_coor = planets[4]["position"]["x"]
+    //     var y_coor = planets[4]["position"]["y"]
+    //     var z_coor = planets[4]["position"]["z"]
 
-        $(".container-fluid").append("<p>x-coordinate: " + x_coor + "</p>");
-        $(".container-fluid").append("<p>y-coordinate: " + y_coor + "</p>");
-        $(".container-fluid").append("<p>z-coordinate: " + z_coor + "</p>");
-    }, 7000);
+    //     $(".container-fluid").append("<p>x-coordinate: " + x_coor + "</p>");
+    //     $(".container-fluid").append("<p>y-coordinate: " + y_coor + "</p>");
+    //     $(".container-fluid").append("<p>z-coordinate: " + z_coor + "</p>");
+    // }, 7000);
 })
 
 
