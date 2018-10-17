@@ -297,7 +297,7 @@ $(document).ready(function () {
         pluto: {
             name: "Pluto",
             radius: 5,
-            revolution: 165 * 365,
+            revolution: 248 * 365,
             sunDistance: 210,
             orbitDirection: "clockwise",
             angle: 0,
@@ -459,15 +459,15 @@ $(document).ready(function () {
              //planet has elliptical orbit in model
              if (planet.hasOwnProperty("ellipse")) {
                 
-                 var a = planet.radius * planet.ellipse.horizontalScale;
-                 var b = planet.radius * planet.ellipse.verticalScale;
+                 var a = planet.sunDistance * planet.ellipse.horizontalScale;
+                 var b = planet.sunDistance * planet.ellipse.verticalScale;
                  var theta = planet.angle;
 
                  
                 sunDist = a*b/Math.sqrt((b*Math.cos(theta))**2 + (a*Math.sin(theta))**2);
 
-                x += planet.ellipse.originShiftX;
-                y += planet.ellipse.originShiftY;
+                x = originX + sunDist * Math.cos(planet.angle) + planet.ellipse.originShiftX;
+                y = originY + sunDist * Math.sin(planet.angle) + planet.ellipse.originShiftY;
             }
             //planet has circular orbit in model
             else {
@@ -605,7 +605,7 @@ $(document).ready(function () {
         //user entering dwarf planet view
         else if (buttonClicked(buttons.switchView, this) && spaceBodies === innerViewPlanets) {
             spaceBodies = dwarfViewPlanets;
-            timeSpeed = 1;
+            timeSpeed = 10;
             drawBackground();
             buttons.switchView.text = "Outer Planets"
             drawButton(buttons.switchView);
@@ -695,11 +695,13 @@ $(document).ready(function () {
     // }
 
     //running program for first time
-    var spaceBodies = dwarfViewPlanets;
+    //var spaceBodies = dwarfViewPlanets;
+    var spaceBodies = outerViewPlanets;
 
     drawBackground();
 
-    var timeSpeed = 10;
+    //var timeSpeed = 10;
+    var timeSpeed = 1;
 
     //runs at 60fps
     var time = setInterval(animateSolarSystem, 1000 / 60);
