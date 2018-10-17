@@ -77,7 +77,7 @@ $(document).ready(function () {
         },
         jupiter: {
             name: "Jupiter",
-            radius: 42,
+            radius: 39,
             revolution: 12 * 365,
             sunDistance: 270,
             orbitDirection: "clockwise",
@@ -163,9 +163,9 @@ $(document).ready(function () {
                     name: "Moon",
                     radius: 10,
                     revolution: 30,
-                    planetDistance: 45,
+                    planetDistance: 48,
                     orbitDirection: "clockwise",
-                    angle: 2*Math.PI,
+                    angle: 2 * Math.PI,
                     color: "white",
                     img: "assets/images/moon.png"
                 },
@@ -193,6 +193,120 @@ $(document).ready(function () {
         },
     }
 
+    var dwarfViewPlanets = {
+        sun: {
+            name: "",
+            radius: 25,
+            revolution: 100, //in earth days
+            sunDistance: 2, //this is actually distance from baricenter
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "yellow",
+            img: "assets/images/sun.png",
+        },
+        mercury: {
+            name: "",
+            radius: 5,
+            revolution: 88,
+            sunDistance: 40,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "lightgrey",
+            img: "assets/images/mercury.png"
+        },
+        venus: {
+            name: "",
+            radius: 7,
+            revolution: 225,
+            sunDistance: 57,
+            orbitDirection: "counterclockwise",
+            angle: 0,
+            color: "gold",
+            img: "assets/images/venus.png"
+        },
+        earth: {
+            name: "",
+            radius: 7,
+            revolution: 365,
+            sunDistance: 75,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "green",
+            img: "assets/images/earth2.png",
+        },
+        mars: {
+            name: "",
+            radius: 4,
+            revolution: 687,
+            sunDistance: 93,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "red",
+            img: "assets/images/mars.png"
+        },
+        ceres: {
+            name: "Ceres",
+            radius: 3,
+            revolution: 1682,
+            sunDistance: 115,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "white",
+            img: "assets/images/ceres.png"
+        },
+        jupiter: {
+            name: "",
+            radius: 8,
+            revolution: 12 * 365,
+            sunDistance: 135,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "orange",
+            img: "assets/images/jupiter.png"
+        },
+        saturn: {
+            name: "",
+            radius: 6 * 2,
+            revolution: 29 * 365,
+            sunDistance: 157,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "khaki",
+            img: "assets/images/saturnScaled.png"
+        },
+        uranus: {
+            name: "",
+            radius: 7,
+            revolution: 84 * 365,
+            sunDistance: 179,
+            orbitDirection: "counterclockwise",
+            angle: 0,
+            color: "turquoise",
+            img: "assets/images/uranus.png"
+        },
+        neptune: {
+            name: "",
+            radius: 20,
+            revolution: 165 * 365,
+            sunDistance: 225,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "blue",
+            img: "assets/images/neptune.png"
+        },
+        pluto: {
+            name: "Pluto",
+            radius: 3,
+            revolution: 165 * 365,
+            sunDistance: 265,
+            orbitDirection: "clockwise",
+            angle: 0,
+            color: "blue",
+            img: "assets/images/neptune.png"
+        },
+
+    }
+
     //needed for drawing on canvas
     var background = document.getElementById("modelBackdrop");
     var bg = background.getContext("2d");
@@ -209,6 +323,7 @@ $(document).ready(function () {
     //canvas button specs
     var buttons = {
         pause: {
+            text: "Pause",
             x: width - 130,
             y: 30,
             width: 100,
@@ -217,6 +332,7 @@ $(document).ready(function () {
             top: 28
         },
         switchView: {
+            text: "Inner Planets",
             x: 30,
             y: height - 80,
             width: 170,
@@ -271,7 +387,7 @@ $(document).ready(function () {
         $.each(spaceBodies, function (key, planet) {
             //drawing planet orbit
             if (planet.name !== "Sun") {
-                bg.strokeStyle = "#212120";
+                bg.strokeStyle = "#3a3a3a";
                 bg.beginPath();
                 bg.arc(originX, originY, planet.sunDistance, 0, 2 * Math.PI);
                 bg.stroke();
@@ -279,12 +395,12 @@ $(document).ready(function () {
         });
 
         //creating pause button
-        drawButton(buttons.pause, "Pause");
+        drawButton(buttons.pause);
 
-        console.log(buttons.pause);
+        //console.log(buttons.pause);
 
         //creating terrestrial planets button
-        drawButton(buttons.switchView, "Inner Planets");
+        drawButton(buttons.switchView);
     }
 
 
@@ -353,6 +469,15 @@ $(document).ready(function () {
 
                     ctx.drawImage(img, moonX, moonY, moon.radius * 2, moon.radius * 2);
 
+                    //writing satellite name
+                    ctx.font = "12px Arial";
+                    ctx.fillStyle = "white";
+                    ctx.textAlign = "center";
+
+                    var textX = satelliteX;
+                    var textY = satelliteY + moon.radius + 10;
+                    ctx.fillText(moon.name, textX, textY);
+
                     //at normal time speed, 1 earth day = 1 frame
                     var orbitRate = 2 * Math.PI / moon.revolution;
 
@@ -388,15 +513,17 @@ $(document).ready(function () {
             clearInterval(time);
             clearInterval(firebaseInterval);
             paused = true;
-            drawButton(buttons.pause, "Play");
+            buttons.pause.text = "Play";
+            drawButton(buttons.pause);
 
         }
         //user clicked play
         else if (buttonClicked(buttons.pause, this) && paused === true) {
             time = setInterval(animateSolarSystem, 1000 / 60);
-            firebaseInterval = setInterval(updateFirebase, 1000);
+            //firebaseInterval = setInterval(updateFirebase, 1000);
             paused = false;
-            drawButton(buttons.pause, "Pause");
+            buttons.pause.text = "Pause";
+            drawButton(buttons.pause);
         }
 
         //user entering inner planet view
@@ -404,15 +531,38 @@ $(document).ready(function () {
             spaceBodies = innerViewPlanets;
             timeSpeed = .10;
             drawBackground();
-            drawButton(buttons.switchView, "Outer Planets");
+            buttons.switchView.text = "Dwarf Planets"
+            drawButton(buttons.switchView);
+            //letting screen switch planets between views while paused
+            if (paused) {
+                animateSolarSystem();
+            }
+        }
+         //user entering dwarf planet view
+         else if (buttonClicked(buttons.switchView, this) && spaceBodies === innerViewPlanets) {
+            spaceBodies = dwarfViewPlanets;
+            timeSpeed = 1;
+            drawBackground();
+            buttons.switchView.text = "Outer Planets"
+            drawButton(buttons.switchView);
+            //letting screen switch planets between views while paused
+            if (paused) {
+                animateSolarSystem();
+            }
         }
         //user entering outer planet view
-        else if(buttonClicked(buttons.switchView, this) && spaceBodies === innerViewPlanets) {
+        else if (buttonClicked(buttons.switchView, this) && spaceBodies === dwarfViewPlanets) {
             spaceBodies = outerViewPlanets;
             timeSpeed = 1;
             drawBackground();
-            drawButton(buttons.switchView, "Inner Planets");
+            buttons.switchView.text = "Inner Planets"
+            drawButton(buttons.switchView);
+            //letting screen switch planets between views while paused
+            if (paused) {
+                animateSolarSystem();
+            }
         }
+        
 
 
     });
@@ -447,8 +597,8 @@ $(document).ready(function () {
         return false;
     }
 
-    //redraws a canvas button with certain text
-    function drawButton(button, text) {
+    //draws a canvas button
+    function drawButton(button) {
         //clearing existing button text
         //bg.clearRect(button.x, button.y, button.width, button.height);
 
@@ -466,7 +616,7 @@ $(document).ready(function () {
         bg.font = "25px Arial";
         bg.textAlign = "left";
         bg.lineWidth = 5;
-        bg.fillText(text, button.x + button.left, button.y + button.top);
+        bg.fillText(button.text, button.x + button.left, button.y + button.top);
     }
 
     //stores the planet angles in firebase
@@ -481,7 +631,7 @@ $(document).ready(function () {
     }
 
     //running program for first time
-    var spaceBodies = outerViewPlanets;
+    var spaceBodies = dwarfViewPlanets;
 
     drawBackground();
 
@@ -489,6 +639,6 @@ $(document).ready(function () {
 
     //runs at 60fps
     var time = setInterval(animateSolarSystem, 1000 / 60);
-    var firebaseInterval = setInterval(updateFirebase, 1000);
+    //var firebaseInterval = setInterval(updateFirebase, 1000);
     var paused = false;
 });
