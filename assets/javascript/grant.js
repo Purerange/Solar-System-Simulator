@@ -1,17 +1,17 @@
 //file containing code for animating solar system model
 $(document).ready(function () {
 
-    var config = {
-        apiKey: "AIzaSyDcDfKZ4Bw5G7wC9aOW_LnUrNli-TzjetE",
-        authDomain: "solar-system-simulator.firebaseapp.com",
-        databaseURL: "https://solar-system-simulator.firebaseio.com",
-        projectId: "solar-system-simulator",
-        storageBucket: "solar-system-simulator.appspot.com",
-        messagingSenderId: "711323614670"
-    };
-    firebase.initializeApp(config);
+    // var config = {
+    //     apiKey: "AIzaSyDcDfKZ4Bw5G7wC9aOW_LnUrNli-TzjetE",
+    //     authDomain: "solar-system-simulator.firebaseapp.com",
+    //     databaseURL: "https://solar-system-simulator.firebaseio.com",
+    //     projectId: "solar-system-simulator",
+    //     storageBucket: "solar-system-simulator.appspot.com",
+    //     messagingSenderId: "711323614670"
+    // };
+    // firebase.initializeApp(config);
 
-    var database = firebase.database();
+    // var database = firebase.database();
 
     //planets for outer planet view
     var outerViewPlanets = {
@@ -511,7 +511,7 @@ $(document).ready(function () {
         //user clicked pause
         if (buttonClicked(buttons.pause, this) && paused === false) {
             clearInterval(time);
-            clearInterval(firebaseInterval);
+            // clearInterval(firebaseInterval);
             paused = true;
             buttons.pause.text = "Play";
             drawButton(buttons.pause);
@@ -520,7 +520,7 @@ $(document).ready(function () {
         //user clicked play
         else if (buttonClicked(buttons.pause, this) && paused === true) {
             time = setInterval(animateSolarSystem, 1000 / 60);
-            //firebaseInterval = setInterval(updateFirebase, 1000);
+            // firebaseInterval = setInterval(updateFirebase, 1000);
             paused = false;
             buttons.pause.text = "Pause";
             drawButton(buttons.pause);
@@ -620,15 +620,15 @@ $(document).ready(function () {
     }
 
     //stores the planet angles in firebase
-    function updateFirebase() {
-        $.each(spaceBodies, function (key, planet) {
+    // function updateFirebase() {
+    //     $.each(spaceBodies, function (key, planet) {
 
-            database.ref("planets/" + planet.name).set({
-                angle: planet.angle
-            });
+    //         database.ref("planets/" + planet.name).set({
+    //             angle: planet.angle
+    //         });
 
-        });
-    }
+    //     });
+    // }
 
     //running program for first time
     var spaceBodies = dwarfViewPlanets;
@@ -639,6 +639,10 @@ $(document).ready(function () {
 
     //runs at 60fps
     var time = setInterval(animateSolarSystem, 1000 / 60);
+<<<<<<< HEAD
     //var firebaseInterval = setInterval(updateFirebase, 1000);
+=======
+    // var firebaseInterval = setInterval(updateFirebase, 1000);
+>>>>>>> master
     var paused = false;
 });
