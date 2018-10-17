@@ -157,7 +157,7 @@ $(document).ready(function() {
             color: 'orangered'}
     }
 
-    var sunDisplay = document.getElementById("magnitude-container");
+    var sunDisplay = document.getElementById("sun-container");
     var dataSun = [sunPlot_radius, sunPlot_lum];
 
     var layoutSun = {
@@ -167,6 +167,18 @@ $(document).ready(function() {
     }
 
     Plotly.newPlot(sunDisplay, dataSun, layoutSun);
+
+    // setInterval(function() {
+    //     var planets = window.lagrange.planet_positions.getPositions(new Date());
+        
+    //     var x_coor = planets[4]["position"]["x"]
+    //     var y_coor = planets[4]["position"]["y"]
+    //     var z_coor = planets[4]["position"]["z"]
+
+    //     $(".container-fluid").append("<p>x-coordinate: " + x_coor + "</p>");
+    //     $(".container-fluid").append("<p>y-coordinate: " + y_coor + "</p>");
+    //     $(".container-fluid").append("<p>z-coordinate: " + z_coor + "</p>");
+    // }, 7000);
 })
 
 
@@ -186,3 +198,9 @@ $(document).ready(function() {
 
 // optional stuff for the plots:
 //  error bars for magnitude
+
+// plots: temperature vs time
+//  kuiper belt, oort cloud, alpha centauri system
+// satellite api and locations
+// possibility of life in solar system
+// convert Ra Dec to alt,az
