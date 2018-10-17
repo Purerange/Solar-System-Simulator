@@ -115,6 +115,58 @@ $(document).ready(function() {
     }
 
     Plotly.newPlot(magnitudeDisplay, dataMagnitude, layoutMagnitude);
+
+    var timescale = [-.05, 0, 4.57, 9.84, 11.6, 12.27, 12.27001, 12.37, 12.39, 12.3905];
+    var solar_radius = [0, .93, 1, 1.75, 3.5, 180, 10, 20, 200, .03];
+    var solar_lum = [0, .87, 1, 1.75, 2.2, 2800, 50, 100, 2000, .01];
+
+    for (i = 0; i < timescale.length; i++) {
+        solar_radius[i] = Math.log(solar_radius[i]);
+        solar_lum[i] = Math.log(solar_lum[i]);
+    }
+
+    var evolution_text = [
+        "Proto-star",
+        "Zero-Age Main Sequence",
+        "Current Age",
+        "Hydrogen Core Exhaustion - Hydrogen Shell Burning",
+        "First Dredge-Up",
+        "Helium Core Flash",
+        "Helium Core Burning: Horizontal Branch: Triple Alpha",
+        "Second Dredge-Up: Helium Shell Burning - Asymptotic Giant Branch",
+        "Thermal Pulse",
+        "Planetary Nebula - White Dwarf"]
+
+    var sunPlot_radius = { 
+        x: timescale,
+        y: solar_radius,
+        name: 'Radius',
+        text: evolution_text,
+        mode: 'lines+markers',
+        marker: {size: [10, 10, 20, 10, 10, 10, 10, 10, 10, 10],
+            color: 'blue'}
+    }
+
+    var sunPlot_lum = { 
+        x: timescale,
+        y: solar_lum,
+        name: 'Luminosity',
+        text: evolution_text,
+        mode: 'lines+markers',
+        marker: {size: [10, 10, 20, 10, 10, 10, 10, 10, 10, 10],
+            color: 'orangered'}
+    }
+
+    var sunDisplay = document.getElementById("magnitude-container");
+    var dataSun = [sunPlot_radius, sunPlot_lum];
+
+    var layoutSun = {
+        title: 'Characteristics of the Sun from Formation to White Dwarf',
+        xaxis: {title: 'Time (Billion Years)'},
+        yaxis: {title: 'Log (Value/Value_current)'},
+    }
+
+    Plotly.newPlot(sunDisplay, dataSun, layoutSun);
 })
 
 
