@@ -1,6 +1,5 @@
 //file containing code for animating solar system model
 $(document).ready(function () {
-
     // var config = {
     //     apiKey: "AIzaSyDcDfKZ4Bw5G7wC9aOW_LnUrNli-TzjetE",
     //     authDomain: "solar-system-simulator.firebaseapp.com",
@@ -382,8 +381,8 @@ $(document).ready(function () {
                 originShiftX: 0,
                 originShiftY: 164,
                 tilt:0
-            },
-        },
+            }
+        }
 
     }
 
@@ -393,6 +392,9 @@ $(document).ready(function () {
 
     var canvas = document.getElementById("solarSystem");
     var ctx = canvas.getContext("2d");
+
+    var foreground = document.getElementById("foreground");
+    var fg = foreground.getContext("2d");
 
     //helpful canvas values
     var width = canvas.width;
@@ -522,6 +524,11 @@ $(document).ready(function () {
 
         //creating terrestrial planets button
         drawButton(buttons.switchView);
+
+         //white border
+         fg.strokeStyle = "white";
+         fg.lineWidth = 5;
+         fg.strokeRect(0, 0, width, height);
     }
 
 
@@ -645,17 +652,12 @@ $(document).ready(function () {
                 });
             }
         });
-
-        //white border
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 5;
-        ctx.strokeRect(0, 0, width, height);
     }
 
     //draw space body
 
     //button click event for canvas buttons
-    $(canvas).on("click", function (event) {
+    $(foreground).on("click", function (event) {
         console.log("clicked");
 
         //user clicked pause
@@ -753,20 +755,20 @@ $(document).ready(function () {
         //bg.clearRect(button.x, button.y, button.width, button.height);
 
         //black background
-        bg.fillStyle = "black";
-        bg.fillRect(button.x, button.y, button.width, button.height);
+        fg.fillStyle = "black";
+        fg.fillRect(button.x, button.y, button.width, button.height);
 
         //white border
-        bg.strokeStyle = "white";
-        bg.lineWidth = 2;
-        bg.strokeRect(button.x, button.y, button.width, button.height);
+        fg.strokeStyle = "white";
+        fg.lineWidth = 2;
+        fg.strokeRect(button.x, button.y, button.width, button.height);
 
         //white text
-        bg.fillStyle = "white";
-        bg.font = "25px Arial";
-        bg.textAlign = "left";
-        bg.lineWidth = 5;
-        bg.fillText(button.text, button.x + button.left, button.y + button.top);
+        fg.fillStyle = "white";
+        fg.font = "25px Arial";
+        fg.textAlign = "left";
+        fg.lineWidth = 5;
+        fg.fillText(button.text, button.x + button.left, button.y + button.top);
     }
 
     //stores the planet angles in firebase
