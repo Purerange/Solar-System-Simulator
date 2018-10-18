@@ -40,7 +40,7 @@ $(document).ready(function () {
             radius: 10,
             revolution: 225,
             sunDistance: 107,
-            orbitDirection: "counterclockwise",
+            orbitDirection: "clockwise",
             angle: 0,
             color: "gold",
             img: "assets/images/venus.png"
@@ -100,7 +100,7 @@ $(document).ready(function () {
             radius: 25,
             revolution: 84 * 365,
             sunDistance: 435,
-            orbitDirection: "counterclockwise",
+            orbitDirection: "clockwise",
             angle: 0,
             color: "turquoise",
             img: "assets/images/uranus.png"
@@ -144,7 +144,7 @@ $(document).ready(function () {
             radius: 18,
             revolution: 220,
             sunDistance: 200,
-            orbitDirection: "counterclockwise",
+            orbitDirection: "clockwise",
             angle: 0,
             color: "gold",
             img: "assets/images/venus.png"
@@ -208,7 +208,7 @@ $(document).ready(function () {
             name: "",
             radius: 5,
             revolution: 88,
-            sunDistance: 35,
+            sunDistance: 32,
             orbitDirection: "clockwise",
             angle: 0,
             color: "lightgrey",
@@ -218,8 +218,8 @@ $(document).ready(function () {
             name: "",
             radius: 7,
             revolution: 225,
-            sunDistance: 40,
-            orbitDirection: "counterclockwise",
+            sunDistance: 35,
+            orbitDirection: "clockwise",
             angle: 0,
             color: "gold",
             img: null
@@ -228,7 +228,7 @@ $(document).ready(function () {
             name: "",
             radius: 7,
             revolution: 365,
-            sunDistance: 45,
+            sunDistance: 38,
             orbitDirection: "clockwise",
             angle: 0,
             color: "green",
@@ -238,7 +238,7 @@ $(document).ready(function () {
             name: "",
             radius: 4,
             revolution: 687,
-            sunDistance: 50,
+            sunDistance: 42,
             orbitDirection: "clockwise",
             angle: 0,
             color: "red",
@@ -258,7 +258,7 @@ $(document).ready(function () {
             name: "",
             radius: 15,
             revolution: 12 * 365,
-            sunDistance: 84,
+            sunDistance: 88,
             orbitDirection: "clockwise",
             angle: 0,
             color: "orange",
@@ -268,7 +268,7 @@ $(document).ready(function () {
             name: "",
             radius: 10 * 2,
             revolution: 29 * 365,
-            sunDistance: 120,
+            sunDistance: 140,
             orbitDirection: "clockwise",
             angle: 0,
             color: "khaki",
@@ -278,8 +278,8 @@ $(document).ready(function () {
             name: "",
             radius: 10,
             revolution: 84 * 365,
-            sunDistance: 152,
-            orbitDirection: "counterclockwise",
+            sunDistance: 180,
+            orbitDirection: "clockwise",
             angle: 0,
             color: "turquoise",
             img: "assets/images/uranus.png"
@@ -288,27 +288,101 @@ $(document).ready(function () {
             name: "",
             radius: 10,
             revolution: 165 * 365,
-            sunDistance: 200,
+            sunDistance: 215,
             orbitDirection: "clockwise",
             angle: 0,
             color: "blue",
             img: "assets/images/neptune.png"
         },
-        pluto: {
-            name: "Pluto",
+        plutoBarycenter: {
+            name: "",
             radius: 5,
             revolution: 248 * 365,
-            sunDistance: 210,
+            sunDistance: 250,
             orbitDirection: "clockwise",
             angle: 0,
             color: "blue",
-            img: "assets/images/pluto.png",
+            img: null,
             ellipse: {
                 horizontalScale: .99,
                 verticalScale: 1,
                 originShiftX: 0,
-                originShiftY: 27
+                originShiftY: 45,
+                tilt: 0
+            },
+            satellites: {
+                pluto: {
+                    name: "Pluto",
+                    radius: 5,
+                    revolution: 800,
+                    planetDistance: 5,
+                    orbitDirection: "clockwise",
+                    angle: 0,
+                    color: "blue",
+                    img: "assets/images/pluto.png"
+                },
+                charon: {
+                    name: "Charon",
+                    radius: 3,
+                    revolution: 1000,
+                    planetDistance: 25,
+                    orbitDirection: "clockwise",
+                    angle: 2 * Math.PI,
+                    color: "white",
+                    img: "assets/images/charon.png"
+                }
             }
+        },
+        haumea: {
+            name: "Haumea",
+            radius: 5,
+            revolution: 284 * 365,
+            sunDistance: 280,
+            orbitDirection: "clockwise",
+            angle: Math.PI,
+            color: "white",
+            img: "assets/images/haumea.png",
+            ellipse: {
+                horizontalScale: 1,
+                verticalScale: .95,
+                originShiftX: 35,
+                originShiftY: -5,
+                tilt: 0
+            },
+        },
+        makemake: {
+            name: "Makemake",
+            radius: 5,
+            revolution: 309 * 365,
+            sunDistance: 300,
+            orbitDirection: "clockwise",
+            angle: Math.PI,
+            color: "white",
+            img: "assets/images/makemake.png",
+            ellipse: {
+                horizontalScale: 1,
+                verticalScale: .95,
+                originShiftX: 0,
+                originShiftY: -25,
+                tilt: 0
+            },
+        },
+        eris: {
+            name: "Eris",
+            radius: 5,
+            revolution: 558 * 365,
+            sunDistance: 440,
+            orbitDirection: "clockwise",
+            angle: Math.PI,
+            color: "white",
+            img: "assets/images/makemake.png",
+            ellipse: {
+                horizontalScale: .87,
+                verticalScale: .95,
+                originShiftX: 0,
+                originShiftY: 164,
+                tilt:0
+            },
         },
 
     }
@@ -399,26 +473,34 @@ $(document).ready(function () {
 
                 //planet has an elliptical orbit in model
                 if (planet.hasOwnProperty("ellipse")) {
-                    console.log(planet.name);
+                    //console.log(planet.name);
 
                     var xScale = planet.ellipse.horizontalScale;
                     var yScale = planet.ellipse.verticalScale;
-                    var x = originX + planet.ellipse.originShiftX;
-                    var y = originY + planet.ellipse.originShiftY;
+                    var x = originX;
+                    var y = originY;
 
-                   // console.log(scale);
-                    console.log(x);
-                    console.log(y);
+                    // console.log(scale);
+                    // console.log(x);
+                    //console.log(y);
 
                     //saving current state
                     bg.save();
 
+                    //moving center point
+                    bg.translate(originX + planet.ellipse.originShiftX, originY + planet.ellipse.originShiftY);
+                   
                     // scale context horizontally
                     bg.scale(xScale, yScale);
 
+                    
+
+                     //rotating canvas
+                     //bg.rotate(planet.ellipse.tilt);
+
                     // draw circle which will be stretched into an oval
                     bg.beginPath();
-                    bg.arc(x / xScale, y / yScale, planet.sunDistance, 0, 2 * Math.PI);
+                    bg.arc(0, 0, planet.sunDistance, 0, 2 * Math.PI);
                     bg.stroke();
 
                     // restore to original state
@@ -456,18 +538,18 @@ $(document).ready(function () {
             var y;
             var sunDist;
 
-             //planet has elliptical orbit in model
-             if (planet.hasOwnProperty("ellipse")) {
-                
-                 var a = planet.sunDistance * planet.ellipse.horizontalScale;
-                 var b = planet.sunDistance * planet.ellipse.verticalScale;
-                 var theta = planet.angle;
+            //planet has elliptical orbit in model
+            if (planet.hasOwnProperty("ellipse")) {
 
-                 
-                sunDist = a*b/Math.sqrt((b*Math.cos(theta))**2 + (a*Math.sin(theta))**2);
+                var a = planet.sunDistance * planet.ellipse.horizontalScale;
+                var b = planet.sunDistance * planet.ellipse.verticalScale;
+                var theta = planet.angle;
 
-                x = originX + sunDist * Math.cos(planet.angle) + planet.ellipse.originShiftX;
-                y = originY + sunDist * Math.sin(planet.angle) + planet.ellipse.originShiftY;
+
+                sunDist = a * b / Math.sqrt((b * Math.cos(theta)) ** 2 + (a * Math.sin(theta)) ** 2);
+
+                x = originX + sunDist * Math.cos(planet.angle + planet.ellipse.tilt) + planet.ellipse.originShiftX;
+                y = originY + sunDist * Math.sin(planet.angle + planet.ellipse.tilt) + planet.ellipse.originShiftY;
             }
             //planet has circular orbit in model
             else {
@@ -515,12 +597,16 @@ $(document).ready(function () {
                 planet.angle -= orbitRate;
             }
 
+            if (planet.name === "plutoBarycenter") {
+                console.log(planet.angle);
+            }
+
             //planet has moons
             //console.log(planet.hasOwnProperty("satellites"));
             if (planet.hasOwnProperty("satellites")) {
                 //console.log(planet.satellites);
                 $.each(planet.satellites, function (key, moon) {
-                    console.log("drawing moon");
+                    //console.log("drawing moon");
                     //drawing satellite
                     var satelliteX = x + moon.planetDistance * Math.cos(moon.angle);
                     var satelliteY = y + moon.planetDistance * Math.sin(moon.angle);
