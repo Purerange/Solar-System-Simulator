@@ -25,7 +25,7 @@ html, body {
     display: flex;
     flex-direction: column;
   }
-  .main {
+  main {
     flex: 1 0 auto;
   }
 
@@ -39,7 +39,7 @@ html, body {
     min-height: 700px;
 }
 
-#modelBackdrop, #solarSystem {
+#modelBackdrop, #solarSystem, #foreground {
     position: absolute; 
     /* left: 0; 
     top: 0;  */
@@ -51,6 +51,10 @@ html, body {
 
 #solarSystem {
     z-index: 1;
+}
+
+#foreground {
+    z-index: 2;
 }
 
 
