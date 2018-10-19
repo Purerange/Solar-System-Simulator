@@ -4,7 +4,7 @@ $(document).ready(function () {
     var planets = {
         sun: {
             name: "Sun",
-            radius: 42,
+            radius: 70,
             revolution: 9, //in earth days
             sunDistance: 0, //this is actually distance from baricenter
             orbitDirection: "clockwise",
@@ -103,8 +103,6 @@ $(document).ready(function () {
         }
     }
 
-    var sunStates = [1, 1.52, 5.20, 9.58, 19.22, 30.11, 2.77, 39.48, 43.22, 45.72, 67.78];
-
     //draws static elements of model including background color and orbit rings
     function drawBackground() {
         //creating black background
@@ -138,10 +136,101 @@ $(document).ready(function () {
         fg.strokeRect(0, 0, width, height);
     }
 
+    //dun explosion data
+    var timescale = [-.05, 0, 4.57, 9.84, 11.6, 12.27, 12.27001, 12.37, 12.39, 12.3905];
+    var solar_radius = [0, .93, 1, 1.75, 3.5, 180, 10, 20, 200, .03];
+
+    var sunStates = [
+        {
+            startRadius: 1,
+            endRadius: 1.75,
+            radius: 1,
+            startTime: 4.57,
+            endTime: 9.84
+            //timeSpeed: .5
+        },
+        {
+            startRadius: 1.75,
+            endRadius: 3.5,
+            radius: 1.75,
+            startTime: 9.84,
+            endTime: 11.6
+        }, 
+        {
+            startRadius: 3.5,
+            endRadius: 180,
+            radius: 3.5,
+            startTime: 11.6,
+            endTime: 12.27
+        },
+        {
+            startRadius: 180,
+            endRadius: 10,
+            radius: 180,
+            startTime: 12.27,
+            endTime: 12.27001
+        }, 
+        {
+            startRadius: 10,
+            endRadius: 20,
+            radius: 10,
+            startTime: 12.27001,
+            endTime: 12.37
+        },
+        {
+            startRadius: 20,
+            endRadius: 200,
+            radius: 20,
+            startTime: 12.37,
+            endTime: 12.39
+        }, 
+        {
+            startRadius: 200,
+            endRadius: .03,
+            radius: 200,
+            startTime: 12.39,
+            endTime: 12.3905
+        }
+    ];
+
     //self-explanatory
     function animateSolarSystem() {
         //clearing canvas
         ctx.clearRect(0, 0, width, height);
+
+         //animating sun explosion
+         if (explodingSunMode) {
+             //console.log("exploding");
+            $.each(sunStates, function(key, timeframe) {
+                var start = timeframe.startTime * timeNormalizer;
+                var end = timeframe.endTime * timeNormalizer;
+
+                // console.log(start);
+                // console.log(end);
+                // console.log(year);
+
+                //figuring out which moment of time the sun is at
+                if(start <= year && year < end) {
+                    //finding number of years between start/end date
+                    var numInterals = end - start;
+
+                    //for scaling Sun's final radius so that it reaches earth's orbit in end
+                    //var earthScaler = startingSunRadius * 
+
+                    //how much the Sun's radius multiplier will change
+                    var radiusIncrease = (timeframe.endRadius - timeframe.startRadius) / numInterals;
+
+                    //the new Sun radius multiplier, a number indicating size relative to when explode button first clicked
+                    radiusMuliplier += radiusIncrease; 
+
+                    //changing Sun's radius
+                    planets.sun.radius = (startingSunRadius * radiusMuliplier)/10;
+                    year+=500;
+
+                    console.log(year);
+                }
+            });
+        }
 
         //drawing all the planets for this particular instance of time
         $.each(spaceBodies, function (key, planet) {
@@ -203,6 +292,8 @@ $(document).ready(function () {
                     }
                 });
             }
+
+           
         });
     }
 
@@ -224,6 +315,12 @@ $(document).ready(function () {
             paused = false;
             buttons.pause.text = "Pause";
             drawButton(buttons.pause);
+        }
+
+        //user clicked explode sun
+        if (buttonClicked(buttons.explode, this)) {
+            console.log("explosion requested");
+            explodingSunMode = true;
         }
 
     });
@@ -278,6 +375,18 @@ $(document).ready(function () {
         fg.lineWidth = 5;
         fg.fillText(button.text, button.x + button.left, button.y + button.top);
     }
+
+    //exploding sun parameters
+    var explodingSunMode = false;
+    //var sunIterator = 
+    var explosionSpeed = 1;
+    
+    var startingSunRadius = planets.sun.radius;
+    var radiusMuliplier = 1;
+
+    //used to ensure all time values for sun explosion are integers
+    var timeNormalizer = 100000;
+    var year = 4.57*timeNormalizer;
 
     var paused = false;
     var spaceBodies = planets;
