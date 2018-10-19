@@ -137,7 +137,7 @@ $(document).ready(function () {
             radius: 3.5,
             startTime: 11.6,
             endTime: 12.27,
-            intervals: 30
+            intervals: 25
         },
         {
             startRadius: 14,
@@ -169,7 +169,7 @@ $(document).ready(function () {
             radius: 15,
             startTime: 12.39,
             endTime: 15,
-            intervals: 255
+            intervals: 215
         }
     ];
 
