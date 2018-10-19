@@ -121,42 +121,48 @@ $(document).ready(function () {
             endRadius: 3.5,
             radius: 1.75,
             startTime: 9.84,
-            endTime: 11.6
+            endTime: 11.6,
+            timeIncrement: .2
         }, 
         {
             startRadius: 3.5,
             endRadius: 180,
             radius: 3.5,
             startTime: 11.6,
-            endTime: 12.27
+            endTime: 12.27,
+            timeIncrement: .01
         },
         {
             startRadius: 180,
             endRadius: 10,
             radius: 180,
             startTime: 12.27,
-            endTime: 12.27001
+            endTime: 12.27001,
+            timeIncrement: .000001
         }, 
         {
             startRadius: 10,
             endRadius: 20,
             radius: 10,
             startTime: 12.27001,
-            endTime: 12.37
+            endTime: 12.37,
+            timeIncrement: .001
         },
         {
             startRadius: 20,
             endRadius: 200,
             radius: 20,
             startTime: 12.37,
-            endTime: 12.39
+            endTime: 12.39,
+            timeIncrement: .001
         }, 
         {
             startRadius: 200,
             endRadius: .03,
             radius: 200,
             startTime: 12.39,
-            endTime: 12.3905
+            endTime: 12.3905,
+            timeIncrement: .00001
         }
     ];
 
@@ -226,7 +232,7 @@ $(document).ready(function () {
 
                     //changing Sun's radius
                     planets.sun.radius = (startingSunRadius * radiusMuliplier)/10;
-                    year+=500;
+                    year+=timeframe.timeIncrement * timeNormalizer;
 
                     console.log(year);
                 }
