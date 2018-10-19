@@ -103,8 +103,6 @@ $(document).ready(function () {
         }
     }
 
-    var sunStates = [1, 1.52, 5.20, 9.58, 19.22, 30.11, 2.77, 39.48, 43.22, 45.72, 67.78];
-
     //draws static elements of model including background color and orbit rings
     function drawBackground() {
         //creating black background
@@ -137,6 +135,8 @@ $(document).ready(function () {
         fg.lineWidth = 5;
         fg.strokeRect(0, 0, width, height);
     }
+
+    var sunStates = [1, 1.52, 5.20, 9.58, 19.22, 30.11, 2.77, 39.48, 43.22, 45.72, 67.78];
 
     //self-explanatory
     function animateSolarSystem() {
@@ -203,6 +203,11 @@ $(document).ready(function () {
                     }
                 });
             }
+
+            //animating sun explosion
+            if(explodingSunMode) {
+                
+            }
         });
     }
 
@@ -224,6 +229,11 @@ $(document).ready(function () {
             paused = false;
             buttons.pause.text = "Pause";
             drawButton(buttons.pause);
+        }
+
+        //user clicked explode sun
+        if(buttonClicked(buttons.explode, this)) {
+            explodeSunMode = true;
         }
 
     });
@@ -280,6 +290,7 @@ $(document).ready(function () {
     }
 
     var paused = false;
+    var explodingSunMode = false;
     var spaceBodies = planets;
     var timeSpeed = .2;
     drawBackground();
