@@ -82,6 +82,29 @@ $(document).ready(function () {
     var originX = width / 2;
     var originY = height / 2;
 
+    var buttons = {
+        pause: {
+            text: "Pause",
+            x: width - 130,
+            y: 30,
+            width: 100,
+            height: 40,
+            left: 10,
+            top: 28
+        },
+        explode: {
+            text: "Explode Sun",
+            x: width / 2 - 85,
+            y: height - 60,
+            width: 170,
+            height: 40,
+            left: 10,
+            top: 30
+        }
+    }
+
+    var sunStates = [1, 1.52, 5.20, 9.58, 19.22, 30.11, 2.77, 39.48, 43.22, 45.72, 67.78];
+
     //draws static elements of model including background color and orbit rings
     function drawBackground() {
         //creating black background
@@ -103,12 +126,11 @@ $(document).ready(function () {
         });
 
         //creating pause button
-        //drawButton(buttons.pause);
+        drawButton(buttons.pause);
 
-        //console.log(buttons.pause);
-
-        //creating terrestrial planets button
-        //drawButton(buttons.switchView);
+        //creating explosion button
+        drawButton(buttons.explode);
+        //console.log(buttons.explode);
 
         //white border
         fg.strokeStyle = "white";
@@ -117,7 +139,7 @@ $(document).ready(function () {
     }
 
     //self-explanatory
-    function animateExplosion() {
+    function animateSolarSystem() {
         //clearing canvas
         ctx.clearRect(0, 0, width, height);
 
@@ -146,7 +168,7 @@ $(document).ready(function () {
 
             //planet has retrograde motion
             planet.angle += orbitRate;
-            
+
             //planet has moons
             //console.log(planet.hasOwnProperty("satellites"));
             if (planet.hasOwnProperty("satellites")) {
@@ -184,8 +206,82 @@ $(document).ready(function () {
         });
     }
 
+    $(foreground).on("click", function (event) {
+        console.log("clicked");
+
+        //user clicked pause
+        if (buttonClicked(buttons.pause, this) && paused === false) {
+            clearInterval(time);
+            // clearInterval(firebaseInterval);
+            paused = true;
+            buttons.pause.text = "Play";
+            drawButton(buttons.pause);
+        }
+        //user clicked play
+        else if (buttonClicked(buttons.pause, this) && paused === true) {
+            time = setInterval(animateSolarSystem, 1000 / 60);
+            // firebaseInterval = setInterval(updateFirebase, 1000);
+            paused = false;
+            buttons.pause.text = "Pause";
+            drawButton(buttons.pause);
+        }
+
+    });
+
+    //obtains pixel on canvas that mouse hovers over
+    function getMousePos(canvas, event) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top
+        };
+    }
+
+    //checks if user clicked a particular canvas button
+    function buttonClicked(button, canvas) {
+        //obtaining coordinates of pixel clicked
+        var mousePos = getMousePos(canvas, event);
+        var x = mousePos.x;
+        var y = mousePos.y;
+
+        //bounding rectangle of button
+        var x1 = button.x;
+        var x2 = button.x + button.width;
+        var y1 = button.y;
+        var y2 = button.y + button.height;
+
+        //checking if a pixel is within a button's boundaries
+        if (x1 <= x && x <= x2 && y1 <= y && y <= y2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    //draws a canvas button
+    function drawButton(button) {
+        console.log("drawing button");
+
+        //black background
+        fg.fillStyle = "black";
+        fg.fillRect(button.x, button.y, button.width, button.height);
+
+        //white border
+        fg.strokeStyle = "white";
+        fg.lineWidth = 2;
+        fg.strokeRect(button.x, button.y, button.width, button.height);
+
+        //white text
+        fg.fillStyle = "white";
+        fg.font = "25px Arial";
+        fg.textAlign = "left";
+        fg.lineWidth = 5;
+        fg.fillText(button.text, button.x + button.left, button.y + button.top);
+    }
+
+    var paused = false;
     var spaceBodies = planets;
     var timeSpeed = .2;
     drawBackground();
-    var time = setInterval(animateExplosion, 1000 / 60);
+    var time = setInterval(animateSolarSystem, 1000 / 60);
 });
