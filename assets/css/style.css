@@ -4,7 +4,7 @@
     background-size: cover;
 }
 .background2 {
-    background-image: url("../images/bg2.jpg");
+    background-image: url("../images/bg3.jpg");
     height: 100%;
     background-size: cover;
 }
@@ -57,7 +57,37 @@ html, body {
     z-index: 2;
 }
 
+#lifebodies {
+    font-weight: bold;
+}
 
+.otherbody {
+    width: 224px;
+    height: auto;
+}
 
+#enceladus {
+    height: 224px;
+    width: auto;
+}
 
-   
+#gallery {
+    color: whitesmoke;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+}
+
+#pic {
+    width: 20px;
+    position: relative;
+}
+
+#coorbody {
+    background-image: url("../images/bg2.jpg");
+    background-size: 1600px 1200px;
+}
+
+#coor-container {
+    background-color: white;
+    opacity: .9
+}

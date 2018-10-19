@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en-us">
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fate of the Sun</title>
+    <title>Aliens</title>
 
     <!-- favicon -->
-    <link rel="icon" type='img/png' href='assets/images/redSun.jpg'>
+    <link rel="icon" type="img/png" href="assets/images/earth_icon.png">
 
     <!-- Reset CSS -->
     <link rel='stylesheet' type='text/css' href='assets/css/reset.css'>
@@ -22,9 +22,10 @@
 
 </head>
 
-<body class='background1'>
+<body class='background2'>
 
-    <header id='header' role='banner'>
+    <header id="header" role="banner">
+
         <!-- Nav Bar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="index.html">Return Home</a>
@@ -35,38 +36,54 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="sun.html">Fate of the Sun</a>
+                        <a class="nav-link" href="life.html">Life in the Solar System</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="analytics.html">What the Data Says</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="coordinates.html">Coordinates</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <main>
+    <div class="container-fluid" id="lifebodies">
+        <header class="text-center my-3">
+            <h1 style="color: green">Life in the Solar System?</h1>
+        </header>
 
-        <div class="container">
-            <!-- contains the static background objects, e.g. orbit paths -->
-            <canvas id="modelBackdrop" width="1100" height="700">
-            </canvas>
-            <!-- contains the moving objects, e.g. planets -->
-            <canvas id="solarSystem" width="1100" height="700">
-            </canvas>
-            <!-- contains static foreground objects, e.g. buttons -->
-            <canvas id="foreground" width="1100" height="700">
-            </canvas>
+        <div class="row text-center my-4" id="earthlife">
+            <div class="col"><img src="assets/images/home.jpg"></div>
         </div>
 
-    </main>
+        <div class="row my-3" id="otherbodies">
+            <div class="col text-center">
+                <p style="color: orangered">Mars</p>
+                <img src="assets/images/mars.jpg" class="otherbody">
+            </div>
+            <div class="col text-center">
+                <p style="color: yellow">Europa</p>
+                <img src="assets/images/europa.jpg" class="otherbody">
+            </div>
+            <div class="col text-center">
+                <p style="color: orange">Titan</p>
+                <img src="assets/images/titan.jpg" class="otherbody">
+            </div>
+            <div class="col text-center">
+                <p style="color: cyan">Enceladus</p>
+                <img src="assets/images/enceladus.jpg" class="otherbody" id="enceladus">
+            </div>
+        </div>
 
-    <footer class="footer copyright text-center mt-3 pt-2" id="graph-footer">
+        <div class="row" id="earth-container">
+
+        </div>
+    </div>
+
+
+    <footer class="footer text-center fixed-bottom copyright mt-3 pt-2" id="graph-footer">
         Copyright &copy; 2018
     </footer>
+
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -76,11 +93,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
-
     <!-- Our JS Scripts -->
-    <script src="assets/javascript/sun.js"></script>
+    <script src="assets/javascript/life.js"></script>
 </body>
 
 </html>
