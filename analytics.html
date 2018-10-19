@@ -8,7 +8,7 @@
   <title>Nerdy Stuff</title>
 
   <!-- favicon -->
-  <link rel="icon" type="image/png" href="assets/images/graph_icon.png">
+  <link rel="icon" type="image/jpg" href="assets/images/graph_icon.jpg">
 
   <!-- Reset CSS -->
   <link rel='stylesheet' type='text/css' href='assets/css/reset.css'>
@@ -36,9 +36,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="nav navbar-nav ml-auto">
+                <!-- Out of Service
                 <li class="nav-item">
                     <a class="nav-link" href="earthorbit.html">Our Home Planet</a>
                 </li>
+                -->
                 <li class="nav-item">
                     <a class="nav-link" href="analytics.html">What the Data Says</a>
                 </li>
@@ -48,6 +50,7 @@
   </header>
 
   <div class="container-fluid mb-5">
+
     <div class="graph-container" id="distance-container"></div>
 
     <div class="graph-container" id="mass-container"></div>
@@ -55,9 +58,21 @@
     <div class="graph-container" id="magnitude-container"></div>
 
     <div class="graph-container" id="sun-container"></div>
+
+    <div id="topo">
+        <form class="text-center my-4" id="form">
+            <label for="lat-input" class="px-3">Latitude:</label>
+            <input type="numeric" class="mx-1" id="lat-input" step=".0001">
+            <label for="long-input" class="px-3">Longitude:</label>
+            <input type="numeric" class="mr-3" id="long-input" step=".0001">
+
+            <input id="coor-btn" class="btn btn-info my-2" type="submit" value="My Topocentric Coordinates">
+        </form>
+    </div>
   </div>
 
-  <footer class="footer fixed-bottom copyright text-center mt-3 pt-2" id="graph-footer">
+
+  <footer class="footer text-center fixed-bottom copyright mt-3 pt-2" id="graph-footer">
     Copyright &copy; 2018
   </footer>
 
@@ -73,6 +88,9 @@
 
   <!-- PlotlyJS -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <!-- Planet Positions -->
+  <script type="text/javascript" src="../planet-positions/js/planet-positions.js"></script>
 
   <!-- Our JS Scripts -->
   <script type="text/javascript" src="assets/javascript/ryan.js"></script>
