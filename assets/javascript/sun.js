@@ -103,40 +103,7 @@ $(document).ready(function () {
         }
     }
 
-    //draws static elements of model including background color and orbit rings
-    function drawBackground() {
-        //creating black background
-        bg.fillStyle = "black";
-        bg.fillRect(0, 0, width, height);
-        bg.lineWidth = 1;
-
-        //drawing orbits
-        $.each(spaceBodies, function (key, planet) {
-            //drawing planet orbit
-            if (planet.name !== "Sun") {
-                bg.strokeStyle = "#3a3a3a";
-
-                bg.beginPath();
-                bg.arc(originX, originY, planet.sunDistance, 0, 2 * Math.PI);
-                bg.stroke();
-
-            }
-        });
-
-        //creating pause button
-        drawButton(buttons.pause);
-
-        //creating explosion button
-        drawButton(buttons.explode);
-        //console.log(buttons.explode);
-
-        //white border
-        fg.strokeStyle = "white";
-        fg.lineWidth = 5;
-        fg.strokeRect(0, 0, width, height);
-    }
-
-    //dun explosion data
+    //sun explosion data
     var timescale = [-.05, 0, 4.57, 9.84, 11.6, 12.27, 12.27001, 12.37, 12.39, 12.3905];
     var solar_radius = [0, .93, 1, 1.75, 3.5, 180, 10, 20, 200, .03];
 
@@ -146,7 +113,8 @@ $(document).ready(function () {
             endRadius: 1.75,
             radius: 1,
             startTime: 4.57,
-            endTime: 9.84
+            endTime: 9.84,
+            timeIncrement: .5
         },
         {
             startRadius: 1.75,
@@ -191,6 +159,40 @@ $(document).ready(function () {
             endTime: 12.3905
         }
     ];
+
+    
+    //draws static elements of model including background color and orbit rings
+    function drawBackground() {
+        //creating black background
+        bg.fillStyle = "black";
+        bg.fillRect(0, 0, width, height);
+        bg.lineWidth = 1;
+
+        //drawing orbits
+        $.each(spaceBodies, function (key, planet) {
+            //drawing planet orbit
+            if (planet.name !== "Sun") {
+                bg.strokeStyle = "#3a3a3a";
+
+                bg.beginPath();
+                bg.arc(originX, originY, planet.sunDistance, 0, 2 * Math.PI);
+                bg.stroke();
+
+            }
+        });
+
+        //creating pause button
+        drawButton(buttons.pause);
+
+        //creating explosion button
+        drawButton(buttons.explode);
+        //console.log(buttons.explode);
+
+        //white border
+        fg.strokeStyle = "white";
+        fg.lineWidth = 5;
+        fg.strokeRect(0, 0, width, height);
+    }
 
     //self-explanatory
     function animateSolarSystem() {
