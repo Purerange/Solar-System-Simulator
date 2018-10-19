@@ -423,6 +423,10 @@ $(document).ready(function() {
         
 })
 
+$(document).ready(function() {
+    $('info').DataTable();
+} );
+
 
 
 // List of stuff we would want in our model:
