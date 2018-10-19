@@ -380,7 +380,7 @@ $(document).ready(function () {
                 verticalScale: .95,
                 originShiftX: 0,
                 originShiftY: 164,
-                tilt:0
+                tilt: 0
             }
         }
 
@@ -491,14 +491,14 @@ $(document).ready(function () {
 
                     //moving center point
                     bg.translate(originX + planet.ellipse.originShiftX, originY + planet.ellipse.originShiftY);
-                   
+
                     // scale context horizontally
                     bg.scale(xScale, yScale);
 
-                    
 
-                     //rotating canvas
-                     //bg.rotate(planet.ellipse.tilt);
+
+                    //rotating canvas
+                    //bg.rotate(planet.ellipse.tilt);
 
                     // draw circle which will be stretched into an oval
                     bg.beginPath();
@@ -589,7 +589,6 @@ $(document).ready(function () {
                 textY = y + planet.radius / 2 + 5;
             }
             ctx.fillText(planet.name, textX, textY);
-
 
             //1 earth day = 1 frame
             var orbitRate = 2 * Math.PI / planet.revolution;
