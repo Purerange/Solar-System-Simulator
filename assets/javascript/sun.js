@@ -4,7 +4,7 @@ $(document).ready(function () {
     var planets = {
         sun: {
             name: "Sun",
-            radius: 70,
+            radius: 10,
             revolution: 9, //in earth days
             sunDistance: 0, //this is actually distance from baricenter
             orbitDirection: "clockwise",
@@ -114,7 +114,7 @@ $(document).ready(function () {
             radius: 1,
             startTime: 4.57,
             endTime: 9.84,
-            timeIncrement: .5
+            timeIncrement: .001
         },
         {
             startRadius: 1.75,
@@ -122,7 +122,7 @@ $(document).ready(function () {
             radius: 1.75,
             startTime: 9.84,
             endTime: 11.6,
-            timeIncrement: .2
+            timeIncrement: .001
         }, 
         {
             startRadius: 3.5,
@@ -130,7 +130,7 @@ $(document).ready(function () {
             radius: 3.5,
             startTime: 11.6,
             endTime: 12.27,
-            timeIncrement: .01
+            timeIncrement: .001
         },
         {
             startRadius: 180,
@@ -138,7 +138,7 @@ $(document).ready(function () {
             radius: 180,
             startTime: 12.27,
             endTime: 12.27001,
-            timeIncrement: .000001
+            timeIncrement: .001
         }, 
         {
             startRadius: 10,
@@ -162,7 +162,7 @@ $(document).ready(function () {
             radius: 200,
             startTime: 12.39,
             endTime: 12.3905,
-            timeIncrement: .00001
+            timeIncrement: .001
         }
     ];
 
@@ -209,6 +209,8 @@ $(document).ready(function () {
          if (explodingSunMode) {
              //console.log("exploding");
             $.each(sunStates, function(key, timeframe) {
+                console.log(planets.sun.radius);
+
                 var start = timeframe.startTime * timeNormalizer;
                 var end = timeframe.endTime * timeNormalizer;
 
@@ -228,10 +230,10 @@ $(document).ready(function () {
                     var radiusIncrease = (timeframe.endRadius - timeframe.startRadius) / numInterals;
 
                     //the new Sun radius multiplier, a number indicating size relative to when explode button first clicked
-                    radiusMuliplier += radiusIncrease; 
+                    timeframe.radius += radiusIncrease; 
 
                     //changing Sun's radius
-                    planets.sun.radius = (startingSunRadius * radiusMuliplier)/10;
+                    planets.sun.radius = startingSunRadius * timeframe.radius;
                     year+=timeframe.timeIncrement * timeNormalizer;
 
                     console.log(year);
@@ -389,7 +391,7 @@ $(document).ready(function () {
     var explosionSpeed = 1;
     
     var startingSunRadius = planets.sun.radius;
-    var radiusMuliplier = 1;
+    var radiusMultiplier = 1;
 
     //used to ensure all time values for sun explosion are integers
     var timeNormalizer = 100000;
