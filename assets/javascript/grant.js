@@ -194,7 +194,7 @@ $(document).ready(function () {
 
     var dwarfViewPlanets = {
         sun: {
-            name: "",
+            name: "Sun",
             radius: 25,
             revolution: 100, //in earth days
             sunDistance: 0, //this is actually distance from baricenter
@@ -204,7 +204,7 @@ $(document).ready(function () {
             img: "assets/images/sun.png",
         },
         mercury: {
-            name: "",
+            name: "Mercury",
             radius: 5,
             revolution: 88,
             sunDistance: 32,
@@ -214,7 +214,7 @@ $(document).ready(function () {
             img: null
         },
         venus: {
-            name: "",
+            name: "Venus",
             radius: 7,
             revolution: 225,
             sunDistance: 35,
@@ -224,7 +224,7 @@ $(document).ready(function () {
             img: null
         },
         earth: {
-            name: "",
+            name: "Earth",
             radius: 7,
             revolution: 365,
             sunDistance: 38,
@@ -234,7 +234,7 @@ $(document).ready(function () {
             img: null
         },
         mars: {
-            name: "",
+            name: "Mars",
             radius: 4,
             revolution: 687,
             sunDistance: 42,
@@ -254,7 +254,7 @@ $(document).ready(function () {
             img: "assets/images/ceres.png"
         },
         jupiter: {
-            name: "",
+            name: "Jupiter",
             radius: 15,
             revolution: 12 * 365,
             sunDistance: 88,
@@ -264,7 +264,7 @@ $(document).ready(function () {
             img: "assets/images/jupiter.png"
         },
         saturn: {
-            name: "",
+            name: "Saturn",
             radius: 10 * 2,
             revolution: 29 * 365,
             sunDistance: 140,
@@ -274,7 +274,7 @@ $(document).ready(function () {
             img: "assets/images/saturnScaled.png"
         },
         uranus: {
-            name: "",
+            name: "Uranus",
             radius: 10,
             revolution: 84 * 365,
             sunDistance: 180,
@@ -284,7 +284,7 @@ $(document).ready(function () {
             img: "assets/images/uranus.png"
         },
         neptune: {
-            name: "",
+            name: "Neptune",
             radius: 10,
             revolution: 165 * 365,
             sunDistance: 215,
@@ -294,7 +294,7 @@ $(document).ready(function () {
             img: "assets/images/neptune.png"
         },
         plutoBarycenter: {
-            name: "",
+            name: "Pluto Barycenter",
             radius: 5,
             revolution: 248 * 365,
             sunDistance: 250,
@@ -380,7 +380,7 @@ $(document).ready(function () {
                 verticalScale: .95,
                 originShiftX: 0,
                 originShiftY: 164,
-                tilt:0
+                tilt: 0
             }
         }
 
@@ -491,14 +491,14 @@ $(document).ready(function () {
 
                     //moving center point
                     bg.translate(originX + planet.ellipse.originShiftX, originY + planet.ellipse.originShiftY);
-                   
+
                     // scale context horizontally
                     bg.scale(xScale, yScale);
 
-                    
 
-                     //rotating canvas
-                     //bg.rotate(planet.ellipse.tilt);
+
+                    //rotating canvas
+                    //bg.rotate(planet.ellipse.tilt);
 
                     // draw circle which will be stretched into an oval
                     bg.beginPath();
@@ -525,10 +525,10 @@ $(document).ready(function () {
         //creating terrestrial planets button
         drawButton(buttons.switchView);
 
-         //white border
-         fg.strokeStyle = "white";
-         fg.lineWidth = 5;
-         fg.strokeRect(0, 0, width, height);
+        //white border
+        fg.strokeStyle = "white";
+        fg.lineWidth = 5;
+        fg.strokeRect(0, 0, width, height);
     }
 
 
@@ -575,21 +575,20 @@ $(document).ready(function () {
                 img.src = planet.img;
 
                 ctx.drawImage(img, planetX, planetY, planet.radius * 2, planet.radius * 2);
+
+                //writing planet name
+                ctx.font = "12px Arial";
+                ctx.fillStyle = "white";
+                ctx.textAlign = "center";
+
+                var textX = x;
+                var textY = y + planet.radius + 10;
+                //special coordinates for saturn
+                if (planet.name === "Saturn") {
+                    textY = y + planet.radius / 2 + 5;
+                }
+                ctx.fillText(planet.name, textX, textY);
             }
-
-            //writing planet name
-            ctx.font = "12px Arial";
-            ctx.fillStyle = "white";
-            ctx.textAlign = "center";
-
-            var textX = x;
-            var textY = y + planet.radius + 10;
-            //special coordinates for saturn
-            if (planet.name === "Saturn") {
-                textY = y + planet.radius / 2 + 5;
-            }
-            ctx.fillText(planet.name, textX, textY);
-
 
             //1 earth day = 1 frame
             var orbitRate = 2 * Math.PI / planet.revolution;
