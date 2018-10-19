@@ -71,6 +71,17 @@ html, body {
     width: auto;
 }
 
+#gallery {
+    color: whitesmoke;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+}
+
+#pic {
+    width: 20px;
+    position: relative;
+}
+
 
 
 

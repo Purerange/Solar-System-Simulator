@@ -420,3 +420,31 @@ $(document).ready(function() {
     }
         
 })
+
+$(document).ready(function() {
+    $('info').DataTable();
+} );
+
+
+
+// List of stuff we would want in our model:
+//  -the 8 planets
+//  -several dwarf planets:
+//      ceres, pluto-charon system, eris, haumea, makemake
+//  -natural satellites:
+//      the moon
+//      jovian: ganymede, europa, io, callisto
+//      saturnian: titan, enceladus
+//      neptunian: triton
+//  asteroid belt
+//  kuiper belt
+//  oort cloud
+
+// optional stuff for the plots:
+//  error bars for magnitude
+
+// plots: temperature vs time
+//  kuiper belt, oort cloud, alpha centauri system
+// satellite api and locations
+// possibility of life in solar system
+// convert Ra Dec to alt,az
