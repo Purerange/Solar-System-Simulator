@@ -82,7 +82,12 @@ html, body {
     position: relative;
 }
 
+#coorbody {
+    background-image: url("../images/bg2.jpg");
+    background-size: 1600px 1200px;
+}
 
-
-
-   
+#coor-container {
+    background-color: white;
+    opacity: .9
+}
