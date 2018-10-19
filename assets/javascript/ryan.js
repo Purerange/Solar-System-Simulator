@@ -330,30 +330,42 @@ $(document).ready(function() {
     $("#coor-btn").on("click", function (event) {
         event.preventDefault();
 
-        var userCoor = [$("#lat-input").val(), $("#long-input").val()];
-        console.log(userCoor)
+        $("#topo").append($("<div id='mercury' class='planetDiv'>"));
+        $("#topo").append($("<div id='venus' class='planetDiv'>"));
+        $("#topo").append($("<div id='mars' class='planetDiv'>"));
+        $("#topo").append($("<div id='jupiter' class='planetDiv'>"));
+        $("#topo").append($("<div id='saturn' class='planetDiv'>"));
+        $("#topo").append($("<div id='uranus' class='planetDiv'>"));
+        $("#topo").append($("<div id='neptune' class='planetDiv'>"));
+        $("#topo").append($("<div id='pluto' class='planetDiv'>"));
+        $("#topo").append($("<div id='moon' class='planetDiv'>"));
 
-        var planets = window.lagrange.planet_positions.getPositions(new Date());
-        var daysSinceJ2000 = (new Date().getTime() - Date.UTC(2000, 0, 1)) / 86400000
+        setInterval(function () {
+            var userCoor = [$("#lat-input").val(), $("#long-input").val()];
 
-        for (p = 0; p < planets.length; p++) {
+            var planets = window.lagrange.planet_positions.getPositions(new Date());
+            var daysSinceJ2000 = (new Date().getTime() - Date.UTC(2000, 0, 1)) / 86400000
 
-            if (planets[p].name === "earth") {
-                continue;
-            } else if (planets[p].name === "sun") {
-                console.log("Sun");
-            } else if (planets[p].name === "moon") {
-                console.log("Moon");
-            } else {
-                var geoCoor = helioToGeo(planets, p);
-                console.log(planets[p].name);
-                var RaDec = geoToRaDec(daysSinceJ2000, geoCoor);
-                console.log(RaDec)
-                var altAz = TopocentricCoor(RaDec, userCoor, daysSinceJ2000);
-                $(".container-fluid").append($("<p>" +
-                    planets[p].name + ": " + altAz[0] + "     " + altAz[1] + "</p>"))
+            for (p = 0; p < planets.length; p++) {
+
+                if (planets[p].name === "earth" || planets[p].name === "halley" || planets[p].name === "sun") {
+                    continue;
+                } else {
+                    var geoCoor = helioToGeo(planets, p);
+                    // console.log(planets[p].name);
+                    var RaDec = geoToRaDec(daysSinceJ2000, geoCoor);
+                    // console.log(RaDec)
+                    var altAz = TopocentricCoor(RaDec, userCoor, daysSinceJ2000);
+                    $(".planetDiv").each(function() {
+                        if (planets[p].name === $(this).attr("id")) {
+                            $(this).text(altAz[0] + "  ,  " + altAz[1])
+                        }
+                    })
+                    // $(".container-fluid").append($("<p>" +
+                    //     planets[p].name + ": " + altAz[0] + "     " + altAz[1] + "</p>"))
+                }
             }
-        }
+        }, 1000)
     })
 
     function geoToRaDec (day, coordinates) {
