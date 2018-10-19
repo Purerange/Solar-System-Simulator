@@ -1,17 +1,16 @@
 //file containing code for animating solar system model
 $(document).ready(function () {
+    // var config = {
+    //     apiKey: "AIzaSyDcDfKZ4Bw5G7wC9aOW_LnUrNli-TzjetE",
+    //     authDomain: "solar-system-simulator.firebaseapp.com",
+    //     databaseURL: "https://solar-system-simulator.firebaseio.com",
+    //     projectId: "solar-system-simulator",
+    //     storageBucket: "solar-system-simulator.appspot.com",
+    //     messagingSenderId: "711323614670"
+    // };
+    // firebase.initializeApp(config);
 
-    var config = {
-        apiKey: "AIzaSyDcDfKZ4Bw5G7wC9aOW_LnUrNli-TzjetE",
-        authDomain: "solar-system-simulator.firebaseapp.com",
-        databaseURL: "https://solar-system-simulator.firebaseio.com",
-        projectId: "solar-system-simulator",
-        storageBucket: "solar-system-simulator.appspot.com",
-        messagingSenderId: "711323614670"
-    };
-    firebase.initializeApp(config);
-
-    var database = firebase.database();
+    // var database = firebase.database();
 
     //planets for outer planet view
     var outerViewPlanets = {
@@ -195,7 +194,7 @@ $(document).ready(function () {
 
     var dwarfViewPlanets = {
         sun: {
-            name: "Sun",
+            name: "",
             radius: 25,
             revolution: 100, //in earth days
             sunDistance: 0, //this is actually distance from baricenter
@@ -205,7 +204,7 @@ $(document).ready(function () {
             img: "assets/images/sun.png",
         },
         mercury: {
-            name: "Mercury",
+            name: "",
             radius: 5,
             revolution: 88,
             sunDistance: 32,
@@ -215,7 +214,7 @@ $(document).ready(function () {
             img: null
         },
         venus: {
-            name: "Venus",
+            name: "",
             radius: 7,
             revolution: 225,
             sunDistance: 35,
@@ -225,7 +224,7 @@ $(document).ready(function () {
             img: null
         },
         earth: {
-            name: "Earth",
+            name: "",
             radius: 7,
             revolution: 365,
             sunDistance: 38,
@@ -235,7 +234,7 @@ $(document).ready(function () {
             img: null
         },
         mars: {
-            name: "Mars",
+            name: "",
             radius: 4,
             revolution: 687,
             sunDistance: 42,
@@ -255,7 +254,7 @@ $(document).ready(function () {
             img: "assets/images/ceres.png"
         },
         jupiter: {
-            name: "Jupiter",
+            name: "",
             radius: 15,
             revolution: 12 * 365,
             sunDistance: 88,
@@ -265,7 +264,7 @@ $(document).ready(function () {
             img: "assets/images/jupiter.png"
         },
         saturn: {
-            name: "Saturn",
+            name: "",
             radius: 10 * 2,
             revolution: 29 * 365,
             sunDistance: 140,
@@ -275,7 +274,7 @@ $(document).ready(function () {
             img: "assets/images/saturnScaled.png"
         },
         uranus: {
-            name: "Uranus",
+            name: "",
             radius: 10,
             revolution: 84 * 365,
             sunDistance: 180,
@@ -285,7 +284,7 @@ $(document).ready(function () {
             img: "assets/images/uranus.png"
         },
         neptune: {
-            name: "Neptune",
+            name: "",
             radius: 10,
             revolution: 165 * 365,
             sunDistance: 215,
@@ -295,7 +294,7 @@ $(document).ready(function () {
             img: "assets/images/neptune.png"
         },
         plutoBarycenter: {
-            name: "Pluto Barycenter",
+            name: "",
             radius: 5,
             revolution: 248 * 365,
             sunDistance: 250,
@@ -422,15 +421,6 @@ $(document).ready(function () {
             height: 40,
             left: 10,
             top: 30
-        },
-        switchSync: {
-            text: "Sync",
-            x: 30,
-            y: 30,
-            width: 100,
-            height: 40,
-            left: 10,
-            top: 30
         }
     }
 
@@ -535,9 +525,6 @@ $(document).ready(function () {
         //creating terrestrial planets button
         drawButton(buttons.switchView);
 
-        //creating sync button
-        drawButton(buttons.switchSync);
-
          //white border
          fg.strokeStyle = "white";
          fg.lineWidth = 5;
@@ -588,20 +575,20 @@ $(document).ready(function () {
                 img.src = planet.img;
 
                 ctx.drawImage(img, planetX, planetY, planet.radius * 2, planet.radius * 2);
-
-                //writing planet name
-                ctx.font = "12px Arial";
-                ctx.fillStyle = "white";
-                ctx.textAlign = "center";
-
-                var textX = x;
-                var textY = y + planet.radius + 10;
-                //special coordinates for saturn
-                if (planet.name === "Saturn") {
-                    textY = y + planet.radius / 2 + 5;
-                }
-                ctx.fillText(planet.name, textX, textY);
             }
+
+            //writing planet name
+            ctx.font = "12px Arial";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+
+            var textX = x;
+            var textY = y + planet.radius + 10;
+            //special coordinates for saturn
+            if (planet.name === "Saturn") {
+                textY = y + planet.radius / 2 + 5;
+            }
+            ctx.fillText(planet.name, textX, textY);
 
 
             //1 earth day = 1 frame
@@ -676,7 +663,7 @@ $(document).ready(function () {
         //user clicked pause
         if (buttonClicked(buttons.pause, this) && paused === false) {
             clearInterval(time);
-            clearInterval(updateInterval);
+            // clearInterval(firebaseInterval);
             paused = true;
             buttons.pause.text = "Play";
             drawButton(buttons.pause);
@@ -684,9 +671,8 @@ $(document).ready(function () {
         }
         //user clicked play
         else if (buttonClicked(buttons.pause, this) && paused === true) {
-            updatePlanetAngles();
             time = setInterval(animateSolarSystem, 1000 / 60);
-            updateInterval = setInterval(updateStorage, 500);
+            // firebaseInterval = setInterval(updateFirebase, 1000);
             paused = false;
             buttons.pause.text = "Pause";
             drawButton(buttons.pause);
@@ -696,9 +682,8 @@ $(document).ready(function () {
         if (buttonClicked(buttons.switchView, this) && spaceBodies === outerViewPlanets) {
             spaceBodies = innerViewPlanets;
             timeSpeed = .10;
-            updatePlanetAngles();
             drawBackground();
-            buttons.switchView.text = "Dwarf Planets";
+            buttons.switchView.text = "Dwarf Planets"
             drawButton(buttons.switchView);
             //letting screen switch planets between views while paused
             if (paused) {
@@ -709,9 +694,8 @@ $(document).ready(function () {
         else if (buttonClicked(buttons.switchView, this) && spaceBodies === innerViewPlanets) {
             spaceBodies = dwarfViewPlanets;
             timeSpeed = 10;
-            updatePlanetAngles();
             drawBackground();
-            buttons.switchView.text = "Outer Planets";
+            buttons.switchView.text = "Outer Planets"
             drawButton(buttons.switchView);
             //letting screen switch planets between views while paused
             if (paused) {
@@ -722,33 +706,9 @@ $(document).ready(function () {
         else if (buttonClicked(buttons.switchView, this) && spaceBodies === dwarfViewPlanets) {
             spaceBodies = outerViewPlanets;
             timeSpeed = 1;
-            updatePlanetAngles();
             drawBackground();
-            buttons.switchView.text = "Inner Planets";
+            buttons.switchView.text = "Inner Planets"
             drawButton(buttons.switchView);
-            //letting screen switch planets between views while paused
-            if (paused) {
-                animateSolarSystem();
-            }
-        }
-
-        //user clicks
-        if (buttonClicked(buttons.switchSync, this) && !syncd) {
-            syncd = true;
-            updatePlanetAngles();
-            drawBackground();
-            buttons.switchSync.text = "Isolate";
-            drawButton(buttons.switchSync);
-            //letting screen switch planets between views while paused
-            if (paused) {
-                animateSolarSystem();
-            }
-        } else if (buttonClicked(buttons.switchSync, this) && syncd) {
-            syncd = false;
-            updatePlanetAngles();
-            drawBackground();
-            buttons.switchSync.text = "Sync";
-            drawButton(buttons.switchSync);
             //letting screen switch planets between views while paused
             if (paused) {
                 animateSolarSystem();
@@ -812,117 +772,27 @@ $(document).ready(function () {
     }
 
     //stores the planet angles in firebase
-    function updateStorage() {
-        if (syncd) {
-            if (spaceBodies === outerViewPlanets) {
-                $.each(outerViewPlanets, function (key, planet) {
+    // function updateFirebase() {
+    //     $.each(spaceBodies, function (key, planet) {
 
-                    database.ref("outer-planets/" + planet.name).set({
-                        angle: planet.angle
-                    });
+    //         database.ref("planets/" + planet.name).set({
+    //             angle: planet.angle
+    //         });
 
-                });
-            } else if (spaceBodies === innerViewPlanets) {
-                $.each(innerViewPlanets, function (key, planet) {
-
-                    database.ref("inner-planets/" + planet.name).set({
-                        angle: planet.angle
-                    });
-                });
-            } else if (spaceBodies === dwarfViewPlanets) {
-                $.each(dwarfViewPlanets, function (key, planet) {
-
-                    database.ref("dwarf-planets/" + planet.name).set({
-                        angle: planet.angle
-                    });
-                });
-            }
-        } else {
-            if (spaceBodies === outerViewPlanets) {
-                $.each(outerViewPlanets, function (key, planet) {
-
-                    localStorage.setItem("outer-" + planet.name, planet.angle);
-
-                });
-            } else if (spaceBodies === innerViewPlanets) {
-                $.each(innerViewPlanets, function (key, planet) {
-
-                    localStorage.setItem("inner-" + planet.name, planet.angle);
-
-                });
-            } else if (spaceBodies === dwarfViewPlanets) {
-                $.each(dwarfViewPlanets, function (key, planet) {
-
-                    localStorage.setItem("dwarf-" + planet.name, planet.angle);
-
-                });
-            }
-
-        }
-    }
-
-    function updatePlanetAngles() {
-        if (syncd) {
-            if (spaceBodies === outerViewPlanets) {
-                $.each(outerViewPlanets, function (key, planet) {
-                    database.ref("outer-planets/" + planet.name).once("value").then(function(snapshot) {
-                        planet.angle = snapshot.val().angle;
-                    });
-                });
-            } else if (spaceBodies === innerViewPlanets) {
-                $.each(innerViewPlanets, function (key, planet) {
-                    database.ref("inner-planets/" + planet.name).once("value").then(function(snapshot){
-                        planet.angle = snapshot.val().angle;
-                    });
-                });
-            } else if (spaceBodies === dwarfViewPlanets) {
-                $.each(dwarfViewPlanets, function (key, planet) {
-                    database.ref("dwarf-planets/" + planet.name).once("value").then(function(snapshot) {
-                        planet.angle = snapshot.val().angle;
-                    });
-                });
-            }
-        } else {
-            if (spaceBodies === outerViewPlanets && localStorage.getItem("outer-Sun") != null) {
-                $.each(outerViewPlanets, function (key, planet) {
-                    planet.angle = parseFloat(localStorage.getItem("outer-" + planet.name));
-                });
-            } else if (spaceBodies === innerViewPlanets && localStorage.getItem("inner-Sun") != null) {
-                $.each(innerViewPlanets, function (key, planet) {
-                    planet.angle = parseFloat(localStorage.getItem("inner-" + planet.name));
-                });
-            } else if (spaceBodies === dwarfViewPlanets && localStorage.getItem("dwarf-Sun") != null) {
-                $.each(dwarfViewPlanets, function (key, planet) {
-                    planet.angle = parseFloat(localStorage.getItem("dwarf-" + planet.name));
-                });
-            }
-
-        }
-    }
-
-    function start() {
-        updatePlanetAngles();
-        drawBackground();
-
-        //var timeSpeed = 10;
-        timeSpeed = 1;
-    
-        //runs at 60fps
-        time = setInterval(animateSolarSystem, 1000 / 60);
-        updateInterval = setInterval(updateStorage, 100);
-        paused = false;
-    }
+    //     });
+    // }
 
     //running program for first time
     //var spaceBodies = dwarfViewPlanets;
     var spaceBodies = outerViewPlanets;
 
-    var timeSpeed;
-    var time;
-    var updateInterval;
-    var paused;
-    var syncd = false;
+    drawBackground();
 
-    setTimeout(start, 300);
+    //var timeSpeed = 10;
+    var timeSpeed = 1;
 
+    //runs at 60fps
+    var time = setInterval(animateSolarSystem, 1000 / 60);
+    // var firebaseInterval = setInterval(updateFirebase, 1000);
+    var paused = false;
 });
