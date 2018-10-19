@@ -925,11 +925,4 @@ $(document).ready(function () {
 
     setTimeout(start, 300);
 
-    localStorage.clear();
-
-    // $.each(outerViewPlanets, function(key, planet) {
-    //     console.log(localStorage.getItem("outer-" + planet.name));
-    // })
-    console.log(localStorage.getItem("outer-Sun"));
-
 });
