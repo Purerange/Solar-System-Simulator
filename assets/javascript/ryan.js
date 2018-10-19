@@ -117,7 +117,7 @@ $(document).ready(function() {
     Plotly.newPlot(magnitudeDisplay, dataMagnitude, layoutMagnitude);
 
     var timescale = [-.05, 0, 4.57, 9.84, 11.6, 12.27, 12.27001, 12.37, 12.39, 12.3905];
-    var solar_radius = [0, .93, 1, 1.75, 3.5, 180, 10, 20, 200, .03];
+    var solar_radius = [0, .93, 1, 1.75, 3.5, 180, 50, 20, 200, .03];
     var solar_lum = [0, .87, 1, 1.75, 2.2, 2800, 50, 100, 2000, .01];
 
     for (i = 0; i < timescale.length; i++) {
@@ -361,8 +361,6 @@ $(document).ready(function() {
                             $(this).text(altAz[0] + "  ,  " + altAz[1])
                         }
                     })
-                    // $(".container-fluid").append($("<p>" +
-                    //     planets[p].name + ": " + altAz[0] + "     " + altAz[1] + "</p>"))
                 }
             }
         }, 1000)
@@ -422,27 +420,3 @@ $(document).ready(function() {
     }
         
 })
-
-
-
-// List of stuff we would want in our model:
-//  -the 8 planets
-//  -several dwarf planets:
-//      ceres, pluto-charon system, eris, haumea, makemake
-//  -natural satellites:
-//      the moon
-//      jovian: ganymede, europa, io, callisto
-//      saturnian: titan, enceladus
-//      neptunian: triton
-//  asteroid belt
-//  kuiper belt
-//  oort cloud
-
-// optional stuff for the plots:
-//  error bars for magnitude
-
-// plots: temperature vs time
-//  kuiper belt, oort cloud, alpha centauri system
-// satellite api and locations
-// possibility of life in solar system
-// convert Ra Dec to alt,az

@@ -4,7 +4,7 @@
     background-size: cover;
 }
 .background2 {
-    background-image: url("../images/bg2.jpg");
+    background-image: url("../images/bg3.jpg");
     height: 100%;
     background-size: cover;
 }
@@ -55,6 +55,20 @@ html, body {
 
 #foreground {
     z-index: 2;
+}
+
+#lifebodies {
+    font-weight: bold;
+}
+
+.otherbody {
+    width: 224px;
+    height: auto;
+}
+
+#enceladus {
+    height: 224px;
+    width: auto;
 }
 
 
