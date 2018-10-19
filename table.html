@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Table Data</title>
+    
+    <!-- Reset -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
+</head>
+<body>
+        <div id="topo">
+
+                <form class="text-center my-4" id="form">
+                    
+                    <label for="lat-input" class="px-3">Latitude:</label>
+                    <input type="numeric" class="mx-1" id="lat-input" step=".0001">
+                    <label for="long-input" class="px-3">Longitude:</label>
+                    <input type="numeric" class="mr-3" id="long-input" step=".0001">
+                    <input id="coor-btn" class="btn btn-info my-2" type="submit" value="My Topocentric Coordinates">
+                
+                </form>
+
+            </div>
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th>Object</th>
+                    <th>Azimuth</th>
+                    <th>Altitude</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/mercury.png" alt="Mercury"/>
+                        Mercury</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/venus.png" alt="Venus"/>
+                        Venus</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/mars.png" alt="Mars"/>
+                            Mars</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/jupiter.png" alt="Jupiter"/>
+                            Jupiter</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/saturn.png" alt="Saturn"/>
+                            Saturn</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/uranus.png" alt="Uranus"/>
+                            Uranus</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/neptune.png" alt="Neptune"/>
+                            Neptune</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/pluto.png" alt="Pluto"/>
+                        Pluto</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/moon.png" alt="Moon"/>
+                            Moon</td>
+                        <td>a</td>
+                        <td>b</td>
+                    </tr>
+                </tbody>
+            </table>
+</body>
+</html>
