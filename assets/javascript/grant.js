@@ -909,7 +909,7 @@ $(document).ready(function () {
     
         //runs at 60fps
         time = setInterval(animateSolarSystem, 1000 / 60);
-        updateInterval = setInterval(updateStorage, 500);
+        updateInterval = setInterval(updateStorage, 100);
         paused = false;
     }
 
