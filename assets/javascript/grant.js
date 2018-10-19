@@ -1,17 +1,17 @@
 //file containing code for animating solar system model
 $(document).ready(function () {
 
-    // var config = {
-    //     apiKey: "AIzaSyDcDfKZ4Bw5G7wC9aOW_LnUrNli-TzjetE",
-    //     authDomain: "solar-system-simulator.firebaseapp.com",
-    //     databaseURL: "https://solar-system-simulator.firebaseio.com",
-    //     projectId: "solar-system-simulator",
-    //     storageBucket: "solar-system-simulator.appspot.com",
-    //     messagingSenderId: "711323614670"
-    // };
-    // firebase.initializeApp(config);
+    var config = {
+        apiKey: "AIzaSyDcDfKZ4Bw5G7wC9aOW_LnUrNli-TzjetE",
+        authDomain: "solar-system-simulator.firebaseapp.com",
+        databaseURL: "https://solar-system-simulator.firebaseio.com",
+        projectId: "solar-system-simulator",
+        storageBucket: "solar-system-simulator.appspot.com",
+        messagingSenderId: "711323614670"
+    };
+    firebase.initializeApp(config);
 
-    // var database = firebase.database();
+    var database = firebase.database();
 
     //planets for outer planet view
     var outerViewPlanets = {
@@ -386,15 +386,16 @@ $(document).ready(function () {
         //user clicked pause
         if (buttonClicked(buttons.pause, this) && paused === false) {
             clearInterval(time);
-            // clearInterval(firebaseInterval);
+            clearInterval(firebaseInterval);
             paused = true;
             drawButton(buttons.pause, "Play");
 
         }
         //user clicked play
         else if (buttonClicked(buttons.pause, this) && paused === true) {
+            updatePlanetAngles();
             time = setInterval(animateSolarSystem, 1000 / 60);
-            // firebaseInterval = setInterval(updateFirebase, 1000);
+            firebaseInterval = setInterval(updateFirebase, 500);
             paused = false;
             drawButton(buttons.pause, "Pause");
         }
@@ -403,6 +404,7 @@ $(document).ready(function () {
         if (buttonClicked(buttons.switchView, this) && spaceBodies === outerViewPlanets) {
             spaceBodies = innerViewPlanets;
             timeSpeed = .10;
+            updatePlanetAngles();
             drawBackground();
             drawButton(buttons.switchView, "Outer Planets");
         }
@@ -410,6 +412,7 @@ $(document).ready(function () {
         else if(buttonClicked(buttons.switchView, this) && spaceBodies === innerViewPlanets) {
             spaceBodies = outerViewPlanets;
             timeSpeed = 1;
+            updatePlanetAngles();
             drawBackground();
             drawButton(buttons.switchView, "Inner Planets");
         }
@@ -470,18 +473,49 @@ $(document).ready(function () {
     }
 
     //stores the planet angles in firebase
-    // function updateFirebase() {
-    //     $.each(spaceBodies, function (key, planet) {
+    function updateFirebase() {
+        if (spaceBodies === outerViewPlanets) {
+            $.each(outerViewPlanets, function (key, planet) {
 
-    //         database.ref("planets/" + planet.name).set({
-    //             angle: planet.angle
-    //         });
+                database.ref("outer-planets/" + planet.name).set({
+                    angle: planet.angle
+                });
 
-    //     });
-    // }
+            });
+        } else {
+            $.each(innerViewPlanets, function (key, planet) {
+
+                database.ref("inner-planets/" + planet.name).set({
+                    angle: planet.angle
+                });
+            })
+        }
+    }
+
+    function updatePlanetAngles() {
+        if (spaceBodies === outerViewPlanets) {
+            $.each(outerViewPlanets, function (key, planet) {
+                database.ref("outer-planets/" + planet.name).once("value").then(function(snapshot) {
+                    planet.angle = snapshot.val().angle;
+                });
+            })
+        } else {
+            $.each(innerViewPlanets, function (key, planet) {
+                database.ref("inner-planets/" + planet.name).once("value").then(function(snapshot){
+                    planet.angle = snapshot.val().angle;
+                })
+            })
+        }
+        $.each(outerViewPlanets, function (key, planet) {
+            database.ref("outer-planets/" + planet.name).once("value").then(function(snapshot) {
+                console.log(snapshot.val());
+            })
+        })
+    }
 
     //running program for first time
     var spaceBodies = outerViewPlanets;
+    updatePlanetAngles();
 
     drawBackground();
 
@@ -489,6 +523,6 @@ $(document).ready(function () {
 
     //runs at 60fps
     var time = setInterval(animateSolarSystem, 1000 / 60);
-    // var firebaseInterval = setInterval(updateFirebase, 1000);
+    var firebaseInterval = setInterval(updateFirebase, 500);
     var paused = false;
 });
