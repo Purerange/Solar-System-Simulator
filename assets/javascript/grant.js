@@ -444,7 +444,7 @@ $(document).ready(function () {
 
         bg.lineWidth = 1;
 
-        drawOortCloud("#2a6969");
+        drawOortCloud("#647280");
 
         drawKuiperBelt("#1a0024");
 
@@ -533,7 +533,7 @@ $(document).ready(function () {
 
         //labeling asteroid belt
         var rectX = width - 200;
-        var rectY = height - 90;
+        var rectY = height - 105;
         var rectWidth = 30;
         var rectHeight = 25;
 
@@ -569,7 +569,7 @@ $(document).ready(function () {
 
             //labeling kuiper belt
             var rectX = width - 200;
-            var rectY = height - 62;
+            var rectY = height - 72;
             var rectWidth = 30;
             var rectHeight = 25;
 
