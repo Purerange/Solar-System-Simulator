@@ -9,6 +9,12 @@
     background-size: cover;
 }
 
+.background3 {
+    background-image: url("../images/galaxy.jpeg");
+    height: 100%;
+    background-size: cover;
+}
+
 .card-body {
     width: 100%
 }
