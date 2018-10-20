@@ -54,8 +54,7 @@
     </header>
 
     <div class="container mb-5" id="coor-container">
-        <div id="topo">
-
+        <div class="row" id="topo">
             <form class="text-center my-4" id="form">
 
                 <label for="lat-input" class="px-3">Latitude:</label>
@@ -66,81 +65,89 @@
 
             </form>
         </div>
+        <div class="row">
+            <table class="table table-striped table-bordered col-12 col-md-8">
+                <thead>
+                    <th>Object</th>
+                    <th>Azimuth (degrees)</th>
+                    <th>Altitude (degrees)</th>
+                </thead>
+                <tbody>
+                    <tr class="planet-row" data-planet="mercury">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/mercury.png" alt="mercury" />
+                            Mercury</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                    <tr class="planet-row" data-planet="venus">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/venus.png" alt="venus" />
+                            Venus</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                    <tr class="planet-row" data-planet="mars">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/mars.png" alt="mars" />
+                            Mars</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                    <tr class="planet-row" data-planet="jupiter">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/jupiter.png" alt="jupiter" />
+                            Jupiter</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                    <tr class="planet-row" data-planet="saturn">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/saturn.png" alt="saturn" />
+                            Saturn</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                    <tr class="planet-row" data-planet="uranus">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/uranus.png" alt="uranus" />
+                            Uranus</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                    <tr class="planet-row" data-planet="neptune">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/neptune.png" alt="neptune" />
+                            Neptune</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                    <tr class="planet-row" data-planet="pluto">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/pluto.png" alt="pluto" />
+                            Pluto</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                    <tr class="planet-row" data-planet="moon">
+                        <td>
+                            <img id="pic" src="../Solar-System-Simulator/assets/images/moon.png" alt="Moon" />
+                            Moon</td>
+                        <td class="az-box"></td>
+                        <td class="alt-box"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <table class="table table-striped table-bordered">
-            <thead>
-                <th>Object</th>
-                <th>Azimuth (degrees)</th>
-                <th>Altitude (degrees)</th>
-            </thead>
-            <tbody>
-                <tr class="planet-row" data-planet="mercury">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/mercury.png" alt="mercury" />
-                        Mercury</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-                <tr class="planet-row" data-planet="venus">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/venus.png" alt="venus" />
-                        Venus</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-                <tr class="planet-row" data-planet="mars">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/mars.png" alt="mars" />
-                        Mars</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-                <tr class="planet-row" data-planet="jupiter">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/jupiter.png" alt="jupiter" />
-                        Jupiter</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-                <tr class="planet-row" data-planet="saturn">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/saturn.png" alt="saturn" />
-                        Saturn</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-                <tr class="planet-row" data-planet="uranus">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/uranus.png" alt="uranus" />
-                        Uranus</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-                <tr class="planet-row" data-planet="neptune">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/neptune.png" alt="neptune" />
-                        Neptune</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-                <tr class="planet-row" data-planet="pluto">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/pluto.png" alt="pluto" />
-                        Pluto</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-                <tr class="planet-row" data-planet="moon">
-                    <td>
-                        <img id="pic" src="../Solar-System-Simulator/assets/images/moon.png" alt="Moon" />
-                        Moon</td>
-                    <td class="az-box"></td>
-                    <td class="alt-box"></td>
-                </tr>
-            </tbody>
-        </table>
-
-
+            <div class="col" id="coortext">
+                <p>Azimuth: Longitudinal coordinate from observer's point of view standing on Earth, starting from
+                    North going clockwise.
+                    Goes from 0 to 360 degrees. Example: West would be 270 degrees.</p>
+                <p>Altitude: Latitudinal coordinate from observer's point of view standing on Earth, with 0 degrees
+                    being the horizon and zenith being 90 degrees.
+                    Goes from -90 to 90 degrees. A negative value means the object is below ground and cannot be seen.</p>
+            </div>
+        </div>
 
 
         <footer class="footer text-center fixed-bottom copyright mt-3 pt-2" id="graph-footer">
