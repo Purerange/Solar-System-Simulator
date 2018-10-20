@@ -97,7 +97,7 @@ html, body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
     margin: auto;
-    width: 80%;
+    width: 85%;
     min-height: 500px;
     background: black;
     opacity: .90;
@@ -121,4 +121,8 @@ figure {
 
 aside {
     font-family: 'Courier New', Courier, monospace;
+}
+
+.img-title {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
