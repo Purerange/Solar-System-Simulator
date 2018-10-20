@@ -179,13 +179,13 @@ $(document).ready(function () {
         var targetPlot = $(this).attr("data-target");
         $(".graph-btn").each(function() {
             if ($(this).attr("data-target") === targetPlot) {
-                $(this).attr("class", "btn btn-success graph-button");
+                $(this).attr("class", "btn btn-success graph-btn");
             } else {
-                $(this).attr("class", "btn btn-info graph-button")
+                $(this).attr("class", "btn btn-info graph-btn")
             }
         })
         $(".graph-container").each(function() {
-            if ($(this).attr("id") === targetPlot) {
+            if ($(this).attr("id") === targetPlot || targetPlot === "all") {
                 $(this).show();
             } else {
                 $(this).hide();
