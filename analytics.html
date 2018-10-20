@@ -57,7 +57,10 @@
 
         <div class="row my-3">
             <div class="col text-center">
-                <button type="button" class="btn btn-success graph-btn" data-target="distance-container">Distance</button>
+                <button type="button" class="btn btn-success graph-btn" data-target="all">All</button>
+            </div>
+            <div class="col text-center">
+                <button type="button" class="btn btn-info graph-btn" data-target="distance-container">Distance</button>
             </div>
             <div class="col text-center">
                 <button type="button" class="btn btn-info graph-btn" data-target="mass-container">Mass</button>
@@ -70,34 +73,93 @@
             </div>
         </div>
 
-        <div class="graph-container" id="distance-container"></div>
+        <div class="graph-container mb-5" id="distance-container">
+            <div class="graphtext mx-auto">
+                <p class="px-2">The x-axis depicts the relative average distance (semi-major axis of the approximated ellipse) of
+                    each
+                    planet/dwarf planet from the Sun.</p>
+                <p class="px-2"> The y-axis shows the inclination of each planet's/dwarf planet's orbital plane. The
+                    dwarf
+                    planets have
+                    particularly high inclinations since they are more readily perturbed by other bodies. The gas
+                    giants'
+                    are in concordance with the barycenter plane that they contribute to creating.</p>
+            </div>
+        </div>
 
-        <div class="graph-container" id="mass-container"></div>
+        <div class="graph-container mb-5 text-center" id="mass-container">
+            <div class="graphtext mx-auto">
+                <p>Jupiter dominates the mass contribution of the planets; it has more than 250% the
+                    combined
+                    mass of all
+                    other planets. The gas giants, primarily Jupiter, contributes to a Solar System barycenter that
+                    usually
+                    lies outside of the Sun. at an average of 1.07 solar radius from the center of the Sun.</p>
+            </div>
+        </div>
 
-        <div class="graph-container" id="magnitude-container"></div>
+        <div class="graph-container mb-5 text-center" id="magnitude-container">
+            <div class="graphtext mx-auto">
+                <p>Apparently magnitude: How bright an object is from an observer on Earth</p>
+                <p>Absolute magnitude: Measure of an object's inherent luminosity</p>
+                <p>Due to historical reasons, the more negative the value the brighter the object, and the star Vega
+                    was
+                    chosen as the base reference for absolute magnitude (Vega had an absolute magnitude of 0.0 at the
+                    time)</p>
+                <p>m - M = -5 * log(d) - 5
+                    <br>
+                    where m is apparent magnitude, M is absolute magnitude, and d is distance per 10 parsecs
+                </p>
+            </div>
+        </div>
 
-        <div class="graph-container" id="sun-container"></div>
+        <div class="graph-container mb-5" id="sun-container">
+            <div class="graphtext mx-auto">
+                <p class="px-2">This plot shows the evolution of the Sun's radius and luminosity over time. Stars spend most of its
+                    life
+                    (the 'adult' phase) on the main sequence, when it's burning hydrogen. The sun has been burning
+                    hydrogen
+                    in its core to produce helium for over 4.5 billion years and will continue to do so for another 5+
+                    billion years.</p>
+                <p class="px-2">The Sun will then expand to become a red giant, rapidly increasing in size and luminosity; the
+                    surface
+                    temperature drops, however, reflecting the optical shift to red. As a red giant, the Sun has
+                    consumed
+                    Mercury and Venus and has nearly reached Earth.</p>
+                <p class="px-2">The degenerate helium solar core will eventually get dense and hot enough ignite the runaway
+                    triple-alpha process where 3 helium nucleus will fuse to form carbon. The helium core flash at this
+                    precise moment produces luminosity on the order of an entire galaxy's.</p>
+                <p class="px-2">The Sun will shrink down significantly and once again start fusion in its core, this time with
+                    helium
+                    into carbon. Earth would also be consumed this time around when the Sun becomes a red giant again.</p>
+                <p class="px-2">Once helium is exhausted, the degenerate carbon-oxygen core will not reach values to ignite carbon
+                    fusion. Instead, the Sun will start to expel its outer layers in thermal pulses, producing a nebula
+                    and
+                    leaving behind a carbon-oxygen white dwarf core as its final form.</p>
+            </div>
+        </div>
+    </div>
 
-        <footer class="footer text-center fixed-bottom copyright mt-3 pt-2" id="graph-footer">
-            Copyright &copy; 2018
-        </footer>
+    <footer class="footer text-center fixed-bottom copyright mt-3 py-2" id="graph-footer">
+        Copyright &copy; 2018
+    </footer>
 
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
-        <!-- Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 
-        <!-- PlotlyJS -->
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- PlotlyJS -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-        <!-- Planet Positions -->
-        <script type="text/javascript" src="assets/javascript/planet-positions/js/planet-positions.js"></script>
+    <!-- Planet Positions -->
+    <script type="text/javascript" src="assets/javascript/planet-positions/js/planet-positions.js"></script>
 
-        <!-- Our JS Scripts -->
-        <script type="text/javascript" src="assets/javascript/ryan.js"></script>
+    <!-- Our JS Scripts -->
+    <script type="text/javascript" src="assets/javascript/ryan.js"></script>
 </body>
 
 </html>

@@ -95,5 +95,20 @@ html, body {
 
 #coor-container {
     background-color: white;
-    opacity: .9
+    opacity: .9;
+    overflow: auto;
+}
+
+.graph-btn {
+    width: 100px;
+}
+
+.graph-container {
+    overflow: auto;
+}
+
+.graphtext {
+    background: linear-gradient(#ffffff, #dddddd);
+    border: 3px double gray;
+    width: 80%;
 }
