@@ -106,6 +106,15 @@ $(document).ready(function () {
             height: 40,
             left: 10,
             top: 30
+        },
+        reset: {
+            text: "Reset",
+            x: 40,
+            y: 30,
+            width: 100,
+            height: 40,
+            left: 10,
+            top: 28
         }
     }
 
@@ -200,6 +209,8 @@ $(document).ready(function () {
         //creating explosion button
         drawButton(buttons.explode);
         //console.log(buttons.explode);
+
+        drawButton(buttons.reset);
 
         //white border
         fg.strokeStyle = "white";
@@ -321,7 +332,6 @@ $(document).ready(function () {
                 });
             }
 
-
         });
     }
 
@@ -346,9 +356,29 @@ $(document).ready(function () {
         }
 
         //user clicked explode sun
-        if (buttonClicked(buttons.explode, this)) {
+        if (buttonClicked(buttons.explode, this) && explodingSunMode === false) {
             console.log("explosion requested");
             explodingSunMode = true;
+        }
+
+        //user clicked reset button
+        if (buttonClicked(buttons.reset, this)) {
+            explodingSunMode = false;
+            year = sunStates[0].startTime * timeNormalizer;
+
+            //restoring planets
+            $.each(planets, function(key, planet) {
+                if(planet.name === "Sun") {
+                    planet.radius = startingSunRadius;
+                }
+                
+                planet.show = true;
+            });
+
+            //restoring sun states
+            $.each(sunStates, function(key, timeframe) {
+                timeframe.radius = timeframe.startRadius;
+            });
         }
 
     });
