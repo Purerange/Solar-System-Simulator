@@ -925,4 +925,8 @@ $(document).ready(function () {
 
     setTimeout(start, 300);
 
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> master
