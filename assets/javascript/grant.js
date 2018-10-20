@@ -415,10 +415,10 @@ $(document).ready(function () {
             top: 28
         },
         switchView: {
-            text: "Inner Planets",
+            text: "to Inner Planets",
             x: 30,
             y: height - 80,
-            width: 170,
+            width: 205,
             height: 40,
             left: 10,
             top: 30
@@ -698,7 +698,7 @@ $(document).ready(function () {
             timeSpeed = .10;
             updatePlanetAngles();
             drawBackground();
-            buttons.switchView.text = "Dwarf Planets";
+            buttons.switchView.text = "to Dwarf Planets";
             drawButton(buttons.switchView);
             //letting screen switch planets between views while paused
             if (paused) {
@@ -711,7 +711,7 @@ $(document).ready(function () {
             timeSpeed = 10;
             updatePlanetAngles();
             drawBackground();
-            buttons.switchView.text = "Outer Planets";
+            buttons.switchView.text = "to Outer Planets";
             drawButton(buttons.switchView);
             //letting screen switch planets between views while paused
             if (paused) {
@@ -724,7 +724,7 @@ $(document).ready(function () {
             timeSpeed = 1;
             updatePlanetAngles();
             drawBackground();
-            buttons.switchView.text = "Inner Planets";
+            buttons.switchView.text = "to Inner Planets";
             drawButton(buttons.switchView);
             //letting screen switch planets between views while paused
             if (paused) {

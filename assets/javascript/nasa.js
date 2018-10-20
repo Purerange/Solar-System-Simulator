@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.log("nasa script active");
+    //console.log("nasa script active");
 
     var planetButtons = {
         sun: {
@@ -62,14 +62,14 @@ $(document).ready(function () {
 
     //makes the planet buttons beneath the model
     function makeButtons() {
-        console.log("making buttons");
+        //console.log("making buttons");
         $.each(planetButtons, function(key, button) {
             var btn = $("<button>");
             btn.addClass("planet-btn");
             btn.attr("data-planet",button.name);
             btn.text(button.name);
             $("#buttons").append(btn);
-            console.log("button created");
+            //console.log("button created");
         });
     }
 
@@ -109,7 +109,7 @@ $(document).ready(function () {
                 var description = imgObject.data[0].description;
                 var image = imgObject.links[0].href;
 
-                var container = $("<div>");
+                var container = $("<figure>");
 
                 var h3 = $("<h3>");
                 h3.addClass("img-title")
@@ -119,7 +119,7 @@ $(document).ready(function () {
                 img.addClass("planet-pic");
                 img.attr("src",image);
 
-                var caption = $("<p>");
+                var caption = $("<figcaption>");
                 caption.addClass("blurb")
                 caption.text(description);
 
