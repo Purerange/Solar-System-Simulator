@@ -74,7 +74,7 @@ $(document).ready(function () {
 
     Plotly.newPlot(massDisplay, dataMass, layoutMass);
 
-    var apparentMag_avg = [-26.74, .23, -4.14, 6.5, -12.74, .71, -2.2, -.46, 5.68, 7.78, -.27, -1.47, .5];
+    var apparentMag_avg = [-26.74, .23, -4.14, 6.5, -12.74, .71, -2.2, .46, 5.68, 7.78, -.27, -1.47, .5];
     var absoluteMag = [4.83, 5.71, 1.42, -5.85]
 
     var AppMagnitudeBar = {
@@ -174,6 +174,24 @@ $(document).ready(function () {
     }
 
     Plotly.newPlot(sunDisplay, dataSun, layoutSun);
+
+    $(".graph-btn").on("click", function() {
+        var targetPlot = $(this).attr("data-target");
+        $(".graph-btn").each(function() {
+            if ($(this).attr("data-target") === targetPlot) {
+                $(this).attr("class", "btn btn-success graph-button");
+            } else {
+                $(this).attr("class", "btn btn-info graph-button")
+            }
+        })
+        $(".graph-container").each(function() {
+            if ($(this).attr("id") === targetPlot) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        })
+    })
 })
 
 
