@@ -71,12 +71,6 @@ html, body {
     width: auto;
 }
 
-#gallery {
-    color: whitesmoke;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    text-align: center;
-}
-
 #pic {
     width: 20px;
     position: relative;
@@ -90,4 +84,35 @@ html, body {
 #coor-container {
     background-color: white;
     opacity: .9
+}
+
+#gallery {
+    color: whitesmoke;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    margin: auto;
+    width: 80%;
+    min-height: 500px;
+    background: black;
+    opacity: .85;
+}
+
+.planet-pic {
+    width: auto;
+    height: auto;
+    max-width: 600px;
+    max-height: 500px;
+}
+
+figure {
+    display: inline-block;
+}
+
+.blurb {
+    max-width: 600px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+aside {
+    font-family: 'Courier New', Courier, monospace;
 }
