@@ -381,7 +381,7 @@ $(document).ready(function () {
                 verticalScale: .95,
                 originShiftX: 0,
                 originShiftY: 164,
-                tilt:0
+                tilt: 0
             }
         }
 
@@ -417,7 +417,7 @@ $(document).ready(function () {
         switchView: {
             text: "to Inner Planets",
             x: 30,
-            y: height - 80,
+            y: height - 65,
             width: 205,
             height: 40,
             left: 10,
@@ -442,38 +442,13 @@ $(document).ready(function () {
         bg.fillStyle = "black";
         bg.fillRect(0, 0, width, height);
 
-        //shading asteroid belt
-        // bg.fillStyle = "#3b3939";
-        // bg.beginPath();
-        // bg.arc(originX, originY, spaceBodies.jupiter.sunDistance, 0, 2 * Math.PI);
-        // bg.fill();
-
-        // bg.fillStyle = "black";
-        // bg.beginPath();
-        // bg.arc(originX, originY, spaceBodies.mars.sunDistance, 0, 2 * Math.PI);
-        // bg.fill();
-
-        //labeling asteroid belt
-        // var rectX = 25;
-        // var rectY = 25;
-        // var rectWidth = 35;
-        // var rectHeight = 30;
-
-        // bg.fillStyle = "#3b3939";
-        // bg.fillRect(rectX, rectY, rectWidth, rectHeight);
-
-        // bg.beginPath();
-        // bg.strokeStyle = "white";
-        // bg.lineWidth = 2;
-        // bg.rect(rectX, rectY, rectWidth, rectHeight);
-        // bg.stroke();
-
-        // bg.font = "25px Arial";
-        // bg.fillStyle = "white";
-        // bg.textAlign = "left";
-        // bg.fillText("= Asteroid Belt", rectX + 45, rectY + 22);
-
         bg.lineWidth = 1;
+
+        drawOortCloud("#2a6969");
+
+        drawKuiperBelt("#1a0024");
+
+        drawAsteroidBelt("#02021a");
 
         //drawing orbits
         $.each(spaceBodies, function (key, planet) {
@@ -501,14 +476,12 @@ $(document).ready(function () {
 
                     //moving center point
                     bg.translate(originX + planet.ellipse.originShiftX, originY + planet.ellipse.originShiftY);
-                   
+
                     // scale context horizontally
                     bg.scale(xScale, yScale);
 
-                    
-
-                     //rotating canvas
-                     //bg.rotate(planet.ellipse.tilt);
+                    //rotating canvas
+                    //bg.rotate(planet.ellipse.tilt);
 
                     // draw circle which will be stretched into an oval
                     bg.beginPath();
@@ -527,23 +500,130 @@ $(document).ready(function () {
             }
         });
 
-        //creating pause button
-        drawButton(buttons.pause);
+        //drawing buttons
+        $.each(buttons, function (key, button) {
+            drawButton(button);
+        });
 
-        //console.log(buttons.pause);
-
-        //creating terrestrial planets button
-        drawButton(buttons.switchView);
-
-        //creating sync button
-        drawButton(buttons.switchSync);
-
-         //white border
-         fg.strokeStyle = "white";
-         fg.lineWidth = 5;
-         fg.strokeRect(0, 0, width, height);
+        //white border
+        fg.strokeStyle = "white";
+        fg.lineWidth = 5;
+        fg.strokeRect(0, 0, width, height);
     }
 
+    //shades region of asteroid belt/draws colored box in bottom-right legend
+    function drawAsteroidBelt(color) {
+        //shading asteroid belt
+        bg.fillStyle = color;
+        bg.beginPath();
+        //model has jupiter
+        if (spaceBodies.hasOwnProperty("jupiter")) {
+            bg.arc(originX, originY, spaceBodies.jupiter.sunDistance, 0, 2 * Math.PI);
+        }
+        //model does not have jupiter
+        else {
+            bg.arc(originX, originY, 800, 0, 2 * Math.PI);
+        }
+        bg.fill();
+
+        bg.fillStyle = "black";
+        bg.beginPath();
+        bg.arc(originX, originY, spaceBodies.mars.sunDistance, 0, 2 * Math.PI);
+        bg.fill();
+
+        //labeling asteroid belt
+        var rectX = width - 200;
+        var rectY = height - 90;
+        var rectWidth = 30;
+        var rectHeight = 25;
+
+        fg.fillStyle = color;
+        fg.fillRect(rectX, rectY, rectWidth, rectHeight);
+
+        fg.beginPath();
+        fg.strokeStyle = "white";
+        fg.lineWidth = 2;
+        fg.rect(rectX, rectY, rectWidth, rectHeight);
+        fg.stroke();
+
+        fg.font = "20px Arial";
+        fg.fillStyle = "white";
+        fg.textAlign = "left";
+        fg.fillText("= Asteroid Belt", rectX + 45, rectY + 22);
+    }
+
+    //draws Kuiper belt on model
+    function drawKuiperBelt(color) {
+        //model has neptune
+        if (spaceBodies.hasOwnProperty("neptune")) {
+            //shading kuiper belt
+            bg.fillStyle = color;
+            bg.beginPath();
+            bg.arc(originX, originY, dwarfViewPlanets.eris.sunDistance + 55, 0, 2 * Math.PI);
+            bg.fill();
+
+            bg.fillStyle = "black";
+            bg.beginPath();
+            bg.arc(originX, originY, spaceBodies.neptune.sunDistance + 37, 0, 2 * Math.PI);
+            bg.fill();
+
+            //labeling kuiper belt
+            var rectX = width - 200;
+            var rectY = height - 62;
+            var rectWidth = 30;
+            var rectHeight = 25;
+
+            fg.fillStyle = color;
+            fg.fillRect(rectX, rectY, rectWidth, rectHeight);
+
+            fg.beginPath();
+            fg.strokeStyle = "white";
+            fg.lineWidth = 2;
+            fg.rect(rectX, rectY, rectWidth, rectHeight);
+            fg.stroke();
+
+            fg.font = "20px Arial";
+            fg.fillStyle = "white";
+            fg.textAlign = "left";
+            fg.fillText("= Kuiper Belt", rectX + 45, rectY + 22);
+        }
+    }
+
+    //for drawing region with orc cloud 
+    function drawOortCloud(color) {
+         //model has eris
+         if (spaceBodies.hasOwnProperty("eris")) {
+            //shading oort cloud
+            bg.fillStyle = color;
+            bg.rect(0,0,width,height);
+            bg.fill();
+
+            bg.fillStyle = "black";
+            bg.beginPath();
+            bg.arc(originX, originY, spaceBodies.eris.sunDistance, 0, 2 * Math.PI);
+            bg.fill();
+
+            //labeling oort cloud
+            var rectX = width - 200;
+            var rectY = height - 42;
+            var rectWidth = 30;
+            var rectHeight = 25;
+
+            fg.fillStyle = color;
+            fg.fillRect(rectX, rectY, rectWidth, rectHeight);
+
+            fg.beginPath();
+            fg.strokeStyle = "white";
+            fg.lineWidth = 2;
+            fg.rect(rectX, rectY, rectWidth, rectHeight);
+            fg.stroke();
+
+            fg.font = "20px Arial";
+            fg.fillStyle = "white";
+            fg.textAlign = "left";
+            fg.fillText("= Oort Cloud", rectX + 45, rectY + 22);
+        }
+    }
 
     //animates the planets and other movig objects in model
     function animateSolarSystem() {
@@ -865,19 +945,19 @@ $(document).ready(function () {
         if (syncd) {
             if (spaceBodies === outerViewPlanets) {
                 $.each(outerViewPlanets, function (key, planet) {
-                    database.ref("outer-planets/" + planet.name).once("value").then(function(snapshot) {
+                    database.ref("outer-planets/" + planet.name).once("value").then(function (snapshot) {
                         planet.angle = snapshot.val().angle;
                     });
                 });
             } else if (spaceBodies === innerViewPlanets) {
                 $.each(innerViewPlanets, function (key, planet) {
-                    database.ref("inner-planets/" + planet.name).once("value").then(function(snapshot){
+                    database.ref("inner-planets/" + planet.name).once("value").then(function (snapshot) {
                         planet.angle = snapshot.val().angle;
                     });
                 });
             } else if (spaceBodies === dwarfViewPlanets) {
                 $.each(dwarfViewPlanets, function (key, planet) {
-                    database.ref("dwarf-planets/" + planet.name).once("value").then(function(snapshot) {
+                    database.ref("dwarf-planets/" + planet.name).once("value").then(function (snapshot) {
                         planet.angle = snapshot.val().angle;
                     });
                 });
@@ -906,7 +986,7 @@ $(document).ready(function () {
 
         //var timeSpeed = 10;
         timeSpeed = 1;
-    
+
         //runs at 60fps
         time = setInterval(animateSolarSystem, 1000 / 60);
         updateInterval = setInterval(updateStorage, 100);
