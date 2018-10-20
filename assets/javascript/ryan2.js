@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     // astronomical unit
     var AU = 149597870700;
@@ -159,25 +159,25 @@ $(document).ready(function() {
         return geoCoor;
     }
 
-    function geoToRaDec (day, coordinates) {
+    function geoToRaDec(day, coordinates) {
         var gx = coordinates[0] / AU;
         var gy = coordinates[1] / AU;
         var gz = coordinates[2] / AU;
-        
+
         // centuries since J2000
         var T = day / 36525;
         // obliquity of the ecliptic
-        var K = 23.4392911 - ((46.8150 * T) - (0.00059 * T * T) + (0.001813 * T * T * T))/3600.0;   
+        var K = 23.4392911 - ((46.8150 * T) - (0.00059 * T * T) + (0.001813 * T * T * T)) / 3600.0;
         // convert to equatorial cartesian coordinates
         var cosK = Angle.CosDeg(K);
         var sinK = Angle.SinDeg(K);
-    
+
         var eqx = gx;
         var eqy = (gy * cosK) - (gz * sinK);
         var eqz = (gy * sinK) + (gz * cosK);
-        
+
         // convert to right ascension (in degrees) and declination
-        var eq = Angle.Polar (eqx, eqy, eqz);
+        var eq = Angle.Polar(eqx, eqy, eqz);
         eq.longitude /= 15;       // convert degrees to sidereal hours       
         return eq;
     }
@@ -204,12 +204,12 @@ $(document).ready(function() {
         if (absAltitudeRatio > 1.0) {
             this.altitude = (altitudeRatio < 0) ? -90.0 : +90.0;
             this.azimuth = 90;    // doesn't really matter what angle we assign: use this value to assist culmination algorithm.            
-        
+
         } else {
             this.altitude = Angle.DEG_FROM_RAD * Math.asin(altitudeRatio);
             this.azimuth = Angle.FixDegrees(Angle.AtanDeg2(-cosDec * sinHourAngle, (cosLat * sinDec) - (sinLat * cosDec * cosHourAngle)));
         }
-        return [this.azimuth, this.altitude];
+        return [(this.azimuth).toFixed(3), this.altitude.toFixed(3)];
     }
 
     $("#coor-btn").on("click", function (event) {
@@ -230,7 +230,7 @@ $(document).ready(function() {
                     var RaDec = geoToRaDec(daysSinceJ2000, geoCoor);
                     var altAz = TopocentricCoor(RaDec, userCoor, daysSinceJ2000);
 
-                    $(".planet-row").each(function() {
+                    $(".planet-row").each(function () {
                         if ($(this).attr("data-planet") === planets[p].name) {
                             $(this).find("td.az-box").text(altAz[0]);
                             $(this).find("td.alt-box").text(altAz[1]);
