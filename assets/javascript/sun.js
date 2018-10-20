@@ -321,10 +321,6 @@ $(document).ready(function () {
                 });
             }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
         });
     }
 
