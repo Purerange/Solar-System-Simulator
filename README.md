@@ -13,4 +13,7 @@ Finally, the Coordinates page allows users to input values for latitude and long
 ### Open Source Credits
 
 Heliocentric Cartesian Coordinates: Martin Vezina; https://github.com/mgvez/planet-positions/blob/master/vendor/three/math/Vector3.js
+
 Coordinate Transformation: Don Cross; cosinekitty.com/astronomy.js
+
+All pictures of planetary bodies credit to NASA.

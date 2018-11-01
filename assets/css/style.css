@@ -3,10 +3,8 @@
     height: 100%;
     background-size: cover;
 }
-.background2 {
+#lifebg {
     background-image: url("../images/bg3.jpg");
-    height: 100%;
-    background-size: cover;
 }
 
 .background3 {
@@ -141,3 +139,12 @@ aside {
 .img-title {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+#enceladus-container {
+    background-image: url("../images/enceladus_geyser.jpg");
+}
+/* 
+#enceladus-interior {
+    width: 1000px;
+    height: 600px;
+} */
