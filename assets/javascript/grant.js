@@ -506,9 +506,9 @@ $(document).ready(function () {
         });
 
         //white border
-        fg.strokeStyle = "white";
-        fg.lineWidth = 5;
-        fg.strokeRect(0, 0, width, height);
+        // fg.strokeStyle = "white";
+        // fg.lineWidth = 5;
+        // fg.strokeRect(0, 0, width, height);
     }
 
     //shades region of asteroid belt/draws colored box in bottom-right legend
