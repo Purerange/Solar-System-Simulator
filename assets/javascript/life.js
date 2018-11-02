@@ -22,7 +22,7 @@ $(document).ready(function () {
         $("#otherbodies").hide();
         $("#lifebg").css("background-image", "url('assets/images/marsbg.jpg')");
         $("#lifetitle").text("Mars");
-        $("#lifetitle").css("color", "orangered");
+        $("#lifetitle").css("color", "orange");
         $(".life-container").each(function() {
             if ($(this).attr("data-target") === "marsclick") {
                 $(this).show();
@@ -37,7 +37,7 @@ $(document).ready(function () {
         $("#otherbodies").hide();
         $("#lifebg").css("background-image", "url('assets/images/bg3.jpg')");
         $("#lifetitle").text("Europa");
-        $("#lifetitle").css("color", "yellow");
+        $("#lifetitle").css("color", "beige");
         $(".life-container").each(function() {
             if ($(this).attr("data-target") === "europaclick") {
                 $(this).show();
@@ -53,7 +53,7 @@ $(document).ready(function () {
         $("#lifebg").css("background-image", "url('assets/images/titan2.jpg')");
         $("#lifebg").css("background-size", "100% auto");
         $("#lifetitle").text("Titan");
-        $("#lifetitle").css("color", "orange");
+        $("#lifetitle").css("color", "yellow");
         $(".life-container").each(function() {
             if ($(this).attr("data-target") === "titanclick") {
                 $(this).show();

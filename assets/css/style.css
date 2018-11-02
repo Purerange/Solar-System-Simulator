@@ -140,11 +140,6 @@ aside {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-#enceladus-container {
-    background-image: url("../images/enceladus_geyser.jpg");
+#enceladus-detail {
+    border: 2px solid cyan;
 }
-/* 
-#enceladus-interior {
-    width: 1000px;
-    height: 600px;
-} */
