@@ -9,6 +9,7 @@ html, body {
 } */
 
 main {
+    /* margin: 0; */
     padding: 0;
 }
 
@@ -23,6 +24,65 @@ canvas {
     /* bottom: 0; */
     width: 100%;
     height: auto;
+    /* height: 100%;
+    width: auto; */
+}
+
+#pause {
+    position: absolute;
+    z-index: 3;
+    /* background: tomato; */
+    background: orangered;
+    color: black;
+    font-size: 2em;
+    margin-left: 85%;
+    margin-top: 2%;
+}
+
+#pause:active {
+    background: blue;
+}
+
+#sync {
+    position: absolute;
+    z-index: 3;
+    background: magenta;
+    color: white;
+    /* padding: .2em 5em .2em 2em; */
+    font-size: 2em;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+
+#sync:active {
+    background: blue;
+}
+
+#inner, #outer, #dwarf {
+    position: absolute;
+    z-index: 3;
+    font-size: 1.5em;
+}
+
+#inner {
+    background: green;
+    color: white;
+    margin-left: 5%;
+    margin-top: 58%;
+}
+
+#outer {
+    background: red;
+    color: white;
+    margin-left: 19.75%;
+    margin-top: 58%;
+}
+
+#dwarf {
+    background: blue;
+    color: white;
+    margin-left: 35%;
+    margin-top: 58%;
 }
 
 .background1 {
@@ -30,10 +90,8 @@ canvas {
     height: 100%;
     background-size: cover;
 }
-.background2 {
+#lifebg {
     background-image: url("../images/bg3.jpg");
-    height: 100%;
-    background-size: cover;
 }
 
 .background3 {
@@ -168,3 +226,12 @@ aside {
 .img-title {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+#enceladus-container {
+    background-image: url("../images/enceladus_geyser.jpg");
+}
+/* 
+#enceladus-interior {
+    width: 1000px;
+    height: 600px;
+} */

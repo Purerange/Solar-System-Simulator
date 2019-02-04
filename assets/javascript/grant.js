@@ -397,42 +397,15 @@ $(document).ready(function () {
     var foreground = document.getElementById("foreground");
     var fg = foreground.getContext("2d");
 
+    // bg.scale(.75,.75);
+    // fg.scale(.75,.75);
+    // ctx.scale(.75,.75);
+
     //helpful canvas values
     var width = canvas.width;
     var height = canvas.height;
     var originX = width / 2;
     var originY = height / 2;
-
-    //canvas button specs
-    var buttons = {
-        pause: {
-            text: "Pause",
-            x: width - 130,
-            y: 30,
-            width: 100,
-            height: 40,
-            left: 10,
-            top: 28
-        },
-        switchView: {
-            text: "to Inner Planets",
-            x: 30,
-            y: height - 65,
-            width: 205,
-            height: 40,
-            left: 10,
-            top: 30
-        },
-        switchSync: {
-            text: "Sync",
-            x: 30,
-            y: 30,
-            width: 100,
-            height: 40,
-            left: 10,
-            top: 30
-        }
-    }
 
     //ctx.scale(.75,.75);
 
@@ -500,10 +473,6 @@ $(document).ready(function () {
             }
         });
 
-        //drawing buttons
-        $.each(buttons, function (key, button) {
-            drawButton(button);
-        });
 
         //white border
         // fg.strokeStyle = "white";
@@ -591,11 +560,11 @@ $(document).ready(function () {
 
     //for drawing region with orc cloud 
     function drawOortCloud(color) {
-         //model has eris
-         if (spaceBodies.hasOwnProperty("eris")) {
+        //model has eris
+        if (spaceBodies.hasOwnProperty("eris")) {
             //shading oort cloud
             bg.fillStyle = color;
-            bg.rect(0,0,width,height);
+            bg.rect(0, 0, width, height);
             bg.fill();
 
             bg.fillStyle = "black";
@@ -628,8 +597,12 @@ $(document).ready(function () {
     //animates the planets and other movig objects in model
     function animateSolarSystem() {
 
+        //ctx.scale(1.25,1.25);
+
         //clearing canvas
         ctx.clearRect(0, 0, width, height);
+
+        //ctx.scale(.75,.75);
 
         //drawing all the planets for this particular instance of time
         $.each(spaceBodies, function (key, planet) {
@@ -749,28 +722,101 @@ $(document).ready(function () {
 
     //draw space body
 
-    //button click event for canvas buttons
-    $(foreground).on("click", function (event) {
-        console.log("clicked");
-
-        //user clicked pause
-        if (buttonClicked(buttons.pause, this) && paused === false) {
+    //pause button event listener
+    $("#pause").on("click", function () {
+        //pausing model
+        if (!paused) {
             clearInterval(time);
             clearInterval(updateInterval);
             paused = true;
-            buttons.pause.text = "Play";
-            drawButton(buttons.pause);
-
+            $(this).html('&#9655;');
         }
-        //user clicked play
-        else if (buttonClicked(buttons.pause, this) && paused === true) {
+        //playing model
+        else if (paused) {
             updatePlanetAngles();
             time = setInterval(animateSolarSystem, 1000 / 60);
             updateInterval = setInterval(updateStorage, 500);
             paused = false;
-            buttons.pause.text = "Pause";
-            drawButton(buttons.pause);
+            $(this).html('&#10074;&#10074;');
         }
+    });
+
+    //sync button event listener
+    $("#sync").on("click", function () {
+        //user clicks
+        if (!syncd) {
+            syncd = true;
+            updatePlanetAngles();
+            drawBackground();
+            $(this).text("Isolate");
+            //letting screen switch planets between views while paused
+            if (paused) {
+                animateSolarSystem();
+            }
+        }
+        else if (syncd) {
+            syncd = false;
+            updatePlanetAngles();
+            drawBackground();
+            $(this).text("Sync");
+            //letting screen switch planets between views while paused
+            if (paused) {
+                animateSolarSystem();
+            }
+        }
+    });
+
+    //inner planet button event listener
+    $("#inner").on("click", function () {
+        //user entering inner planet view
+        if (spaceBodies !== innerViewPlanets) {
+            //$("#inner").attr("color","white");
+            spaceBodies = innerViewPlanets;
+            timeSpeed = .10;
+            updatePlanetAngles();
+            drawBackground();
+            //letting screen switch planets between views while paused
+            if (paused) {
+                animateSolarSystem();
+            }
+        }
+    });
+
+    //outer planet button event listener
+    $("#outer").on("click", function () {
+        //user entering outer planet view
+        if (spaceBodies !== outerViewPlanets) {
+            spaceBodies = outerViewPlanets;
+            timeSpeed = 1;
+            updatePlanetAngles();
+            drawBackground();
+            //letting screen switch planets between views while paused
+            if (paused) {
+                animateSolarSystem();
+            }
+        }
+    });
+
+    //dwarf planet button event listener
+    $("#dwarf").on("click", function () {
+        //entering dwarf planet view
+        if (spaceBodies !== dwarfViewPlanets) {
+            spaceBodies = dwarfViewPlanets;
+            timeSpeed = 10;
+            updatePlanetAngles();
+            drawBackground();
+            //buttons.switchView.text = "to Outer Planets";
+            drawButton(buttons.switchView);
+            //letting screen switch planets between views while paused
+            if (paused) {
+                animateSolarSystem();
+            }
+        }
+    });
+
+    //button click event for canvas buttons
+    $(foreground).on("click", function (event) {
+        console.log("clicked");
 
         //user entering inner planet view
         if (buttonClicked(buttons.switchView, this) && spaceBodies === outerViewPlanets) {
@@ -811,32 +857,6 @@ $(document).ready(function () {
                 animateSolarSystem();
             }
         }
-
-        //user clicks
-        if (buttonClicked(buttons.switchSync, this) && !syncd) {
-            syncd = true;
-            updatePlanetAngles();
-            drawBackground();
-            buttons.switchSync.text = "Isolate";
-            drawButton(buttons.switchSync);
-            //letting screen switch planets between views while paused
-            if (paused) {
-                animateSolarSystem();
-            }
-        } else if (buttonClicked(buttons.switchSync, this) && syncd) {
-            syncd = false;
-            updatePlanetAngles();
-            drawBackground();
-            buttons.switchSync.text = "Sync";
-            drawButton(buttons.switchSync);
-            //letting screen switch planets between views while paused
-            if (paused) {
-                animateSolarSystem();
-            }
-        }
-
-
-
     });
 
     //obtains pixel on canvas that mouse hovers over
@@ -867,28 +887,6 @@ $(document).ready(function () {
         }
 
         return false;
-    }
-
-    //draws a canvas button
-    function drawButton(button) {
-        //clearing existing button text
-        //bg.clearRect(button.x, button.y, button.width, button.height);
-
-        //black background
-        fg.fillStyle = "black";
-        fg.fillRect(button.x, button.y, button.width, button.height);
-
-        //white border
-        fg.strokeStyle = "white";
-        fg.lineWidth = 2;
-        fg.strokeRect(button.x, button.y, button.width, button.height);
-
-        //white text
-        fg.fillStyle = "white";
-        fg.font = "25px Arial";
-        fg.textAlign = "left";
-        fg.lineWidth = 5;
-        fg.fillText(button.text, button.x + button.left, button.y + button.top);
     }
 
     //stores the planet angles in firebase

@@ -22,7 +22,7 @@
 
 </head>
 
-<body class='background2'>
+<body id='lifebg'>
 
     <header id="header" role="banner">
 
@@ -48,34 +48,52 @@
 
     <div class="container-fluid" id="lifebodies">
         <header class="text-center my-3">
-            <h1 style="color: green">Life in the Solar System?</h1>
+            <h1 id="lifetitle" style="color: green; font-family: 'Impact'">Life in the Solar System?</h1>
         </header>
 
         <div class="row text-center my-4" id="earthlife">
-            <div class="col"><img src="assets/images/home.jpg"></div>
+            <div class="col"><img src="assets/images/home.jpg" id="earthclick"></div>
         </div>
 
         <div class="row my-3" id="otherbodies">
             <div class="col text-center">
                 <p style="color: orangered">Mars</p>
-                <img src="assets/images/mars.jpg" class="otherbody">
+                <img src="assets/images/mars.jpg" class="otherbody" id="marsclick">
             </div>
             <div class="col text-center">
                 <p style="color: yellow">Europa</p>
-                <img src="assets/images/europa.jpg" class="otherbody">
+                <img src="assets/images/europa.jpg" class="otherbody" id="europaclick">
             </div>
             <div class="col text-center">
                 <p style="color: orange">Titan</p>
-                <img src="assets/images/titan.jpg" class="otherbody">
+                <img src="assets/images/titan.jpg" class="otherbody" id="titanclick">
             </div>
             <div class="col text-center">
                 <p style="color: cyan">Enceladus</p>
-                <img src="assets/images/enceladus.jpg" class="otherbody" id="enceladus">
+                <img src="assets/images/enceladus.jpg" class="otherbody" id="enceladusclick">
             </div>
         </div>
 
-        <div class="row" id="earth-container">
+        <div class="life-container" data-target="earthclick" id="earth-container">
 
+        </div>
+
+        <div class="life-container" data-target="marsclick" id="mars-container">
+
+        </div>
+
+        <div class="life-container" data-target="europaclick" id="europa-container">
+            <div class='text-center'><img src='assets/images/europa1.jpg'></div>
+        </div>
+
+        <div class="life-container" data-target="titanclick" id="titan-container">
+
+        </div>
+
+        <div class="life-container" data-target="enceladusclick" id="enceladus-container">
+            <div class="row">
+                <img class="col" src="assets/images/enceladus_interior.jpg" id="enceladusinterior">
+            </div>
         </div>
     </div>
 
