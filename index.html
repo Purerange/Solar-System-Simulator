@@ -8,7 +8,7 @@
     <title>Solar System Simulator</title>
 
     <!-- favicon -->
-    <link rel="icon" type='img/png' href='assets/images/moon_icon.png'>
+    <link rel="icon" type='img/png' href='assets/images/sun.png'>
 
     <!-- Reset CSS -->
     <link rel='stylesheet' type='text/css' href='assets/css/reset.css'>
@@ -54,6 +54,16 @@
     <main>
 
         <div class="container">
+            <!-- pause button -->
+            <button type="button" class="btn px-3" id="pause">&#10074;&#10074;</button> 
+            <!-- sync button -->
+            <button type="button" class="btn px-3" id="sync">Sync</button>
+            <!-- inner planet button -->
+            <button type="button" class="btn px-3" id="inner">Inner Planets</button>
+            <!-- outer planet button -->
+            <button type="button" class="btn px-3" id="outer">Outer Planets</button>
+            <!-- dwarf planet button -->
+            <button type="button" class="btn px-3" id="dwarf">Dwarf Planets</button>
             <!-- contains the static background objects, e.g. orbit paths -->
             <canvas id="modelBackdrop" width="1100" height="700">
             </canvas>
@@ -68,9 +78,9 @@
 
     </main>
 
-    <footer class="footer copyright text-center mt-3 pt-2" id="graph-footer">
+    <!-- <footer class="footer copyright text-center mt-3 pt-2" id="graph-footer">
         Copyright &copy; 2018
-    </footer>
+    </footer> -->
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

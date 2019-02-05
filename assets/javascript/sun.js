@@ -213,9 +213,9 @@ $(document).ready(function () {
         drawButton(buttons.reset);
 
         //white border
-        fg.strokeStyle = "white";
-        fg.lineWidth = 5;
-        fg.strokeRect(0, 0, width, height);
+        // fg.strokeStyle = "white";
+        // fg.lineWidth = 5;
+        // fg.strokeRect(0, 0, width, height);
     }
 
     //self-explanatory
