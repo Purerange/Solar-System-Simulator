@@ -1,0 +1,39 @@
+#lifebodies {
+    font-weight: bold;
+}
+
+.otherbody {
+    width: 224px;
+    height: auto;
+}
+
+#enceladus {
+    height: 224px;
+    width: auto;
+}
+
+#lifebg {
+    background-image: url("../images/bg3.jpg");
+}
+
+#earthbg {
+    background-image: url("../images/earthbg.jpg");
+}
+
+#marsbg {
+    background-image: url("../images/marsbg.jpg");
+}
+
+#europabg {
+    background-image: url("../images/bg3.jpg");
+}
+
+#enceladusbg {
+    background-image: url("../images/enceladus_geyser.jpg");
+    background: cover;
+}
+
+#titanbg {
+    background-image: url("../images/titan2.jpg");
+    background-size: 100% auto;
+}
