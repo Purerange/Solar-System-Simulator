@@ -43,7 +43,7 @@ canvas {
     background: blue;
 }
 
-#sync {
+#sync, #reset {
     position: absolute;
     z-index: 3;
     background: magenta;
@@ -58,7 +58,7 @@ canvas {
     background: blue;
 }
 
-#inner, #outer, #dwarf {
+#inner, #outer, #dwarf, #explode {
     position: absolute;
     z-index: 3;
     font-size: 1.5em;
@@ -78,7 +78,7 @@ canvas {
     margin-top: 58%;
 }
 
-#dwarf {
+#dwarf, #explode {
     background: blue;
     color: white;
     margin-left: 35%;
