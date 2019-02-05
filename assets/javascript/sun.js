@@ -88,35 +88,35 @@ $(document).ready(function () {
     var originX = width / 2;
     var originY = height / 2;
 
-    var buttons = {
-        pause: {
-            text: "Pause",
-            x: width - 130,
-            y: 30,
-            width: 100,
-            height: 40,
-            left: 10,
-            top: 28
-        },
-        explode: {
-            text: "Explode Sun",
-            x: width / 2 - 85,
-            y: height - 60,
-            width: 170,
-            height: 40,
-            left: 10,
-            top: 30
-        },
-        reset: {
-            text: "Reset",
-            x: 40,
-            y: 30,
-            width: 100,
-            height: 40,
-            left: 10,
-            top: 28
-        }
-    }
+    // var buttons = {
+    //     // pause: {
+    //     //     text: "Pause",
+    //     //     x: width - 130,
+    //     //     y: 30,
+    //     //     width: 100,
+    //     //     height: 40,
+    //     //     left: 10,
+    //     //     top: 28
+    //     // },
+    //     explode: {
+    //         text: "Explode Sun",
+    //         x: width / 2 - 85,
+    //         y: height - 60,
+    //         width: 170,
+    //         height: 40,
+    //         left: 10,
+    //         top: 30
+    //     },
+    //     reset: {
+    //         text: "Reset",
+    //         x: 40,
+    //         y: 30,
+    //         width: 100,
+    //         height: 40,
+    //         left: 10,
+    //         top: 28
+    //     }
+    // }
 
     //sun explosion data
     var timescale = [-.05, 0, 4.57, 9.84, 11.6, 12.27, 12.27001, 12.37, 12.39, 12.3905];
@@ -204,13 +204,13 @@ $(document).ready(function () {
         });
 
         //creating pause button
-        drawButton(buttons.pause);
+        //drawButton(buttons.pause);
 
         //creating explosion button
-        drawButton(buttons.explode);
+        //drawButton(buttons.explode);
         //console.log(buttons.explode);
 
-        drawButton(buttons.reset);
+        //drawButton(buttons.reset);
 
         //white border
         // fg.strokeStyle = "white";
@@ -335,6 +335,52 @@ $(document).ready(function () {
         });
     }
 
+    //pause button clicked
+    $("#pause").on("click", function (event) {
+        //pausing animation
+        if (paused === false) {
+            clearInterval(time);
+            // clearInterval(firebaseInterval);
+            paused = true;
+            $(this).html('&#9655;');
+        }
+        //unpausing animation
+        else if (paused) {
+            time = setInterval(animateSolarSystem, 1000 / 60);
+            // firebaseInterval = setInterval(updateFirebase, 1000);
+            paused = false;
+            $(this).html('&#10074;&#10074;');
+        }
+    });
+
+    //reset button clicked
+    $("#reset").on("click", function (event) {
+        explodingSunMode = false;
+        year = sunStates[0].startTime * timeNormalizer;
+
+        //restoring planets
+        $.each(planets, function (key, planet) {
+            if (planet.name === "Sun") {
+                planet.radius = startingSunRadius;
+            }
+
+            planet.show = true;
+        });
+
+        //restoring sun states
+        $.each(sunStates, function (key, timeframe) {
+            timeframe.radius = timeframe.startRadius;
+        });
+    });
+
+    //user expoded the sun
+    $("#explode").on("click", function(event) {
+        if (explodingSunMode === false) {
+            console.log("explosion requested");
+            explodingSunMode = true;
+        }
+    });
+
     $(foreground).on("click", function (event) {
         console.log("clicked");
 
@@ -367,16 +413,16 @@ $(document).ready(function () {
             year = sunStates[0].startTime * timeNormalizer;
 
             //restoring planets
-            $.each(planets, function(key, planet) {
-                if(planet.name === "Sun") {
+            $.each(planets, function (key, planet) {
+                if (planet.name === "Sun") {
                     planet.radius = startingSunRadius;
                 }
-                
+
                 planet.show = true;
             });
 
             //restoring sun states
-            $.each(sunStates, function(key, timeframe) {
+            $.each(sunStates, function (key, timeframe) {
                 timeframe.radius = timeframe.startRadius;
             });
         }

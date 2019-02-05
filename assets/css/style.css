@@ -4,10 +4,6 @@ html, body {
     margin: 0;
 }
 
-/* header {
-    margin-bottom: 10%;
-} */
-
 main {
     /* margin: 0; */
     padding: 0;
@@ -43,7 +39,7 @@ canvas {
     background: blue;
 }
 
-#sync {
+#sync, #reset {
     position: absolute;
     z-index: 3;
     background: magenta;
@@ -58,7 +54,7 @@ canvas {
     background: blue;
 }
 
-#inner, #outer, #dwarf {
+#inner, #outer, #dwarf, #explode {
     position: absolute;
     z-index: 3;
     font-size: 1.5em;
@@ -78,7 +74,7 @@ canvas {
     margin-top: 58%;
 }
 
-#dwarf {
+#dwarf, #explode {
     background: blue;
     color: white;
     margin-left: 35%;
@@ -89,9 +85,6 @@ canvas {
     background-image: url("../images/bg1.jpg");
     height: 100%;
     background-size: cover;
-}
-#lifebg {
-    background-image: url("../images/bg3.jpg");
 }
 
 .background3 {
@@ -148,19 +141,6 @@ html, body {
     z-index: 2;
 }
 
-#lifebodies {
-    font-weight: bold;
-}
-
-.otherbody {
-    width: 224px;
-    height: auto;
-}
-
-#enceladus {
-    height: 224px;
-    width: auto;
-}
 
 #pic {
     width: 20px;
@@ -227,11 +207,3 @@ aside {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-#enceladus-container {
-    background-image: url("../images/enceladus_geyser.jpg");
-}
-/* 
-#enceladus-interior {
-    width: 1000px;
-    height: 600px;
-} */
