@@ -44,7 +44,7 @@
                         <a class="nav-link" href="coordinates.html">Coordinates</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="animation.html">Gallery</a>
+                        <a class="nav-link" href="gallery.html">Gallery</a>
                     </li>
                 </ul>
             </div>
@@ -52,8 +52,13 @@
     </header>
 
     <main>
-
         <div class="container">
+            <!-- pause button -->
+            <button type="button" class="btn px-3" id="pause">&#10074;&#10074;</button>
+            <!-- reset button -->
+            <button type="button" class="btn px-3" id="reset">Reset</button>
+            <!-- explode button -->
+            <button type="button" class="btn px-3" id="explode">Explode</button>
             <!-- contains the static background objects, e.g. orbit paths -->
             <canvas id="modelBackdrop" width="1100" height="700">
             </canvas>
