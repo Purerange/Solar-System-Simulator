@@ -37,3 +37,23 @@
     background-image: url("../images/titan2.jpg");
     background-size: 100% auto;
 }
+
+#titanmain {
+    color: goldenrod;
+}
+
+.polaroid {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 blue, 0 6px 20px 0 blueviolet;
+    opacity: .7;
+    border-top: 2px solid goldenrod;
+}
+
+.subtext {
+    color: turquoise;
+    font-size: 1em;
+}
+
+.lifelist {
+    list-style-type: square;
+}
